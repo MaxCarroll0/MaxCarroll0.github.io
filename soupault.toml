@@ -4,7 +4,7 @@
 
 [settings]
   # Require soupault 5.0.0 or later
-  soupault_version = "5.1.0"
+  soupault_version = "5.0.0"
 
   # Show build progress
   verbose = true
@@ -122,7 +122,7 @@
   # Override soupault's built-in index processor with a custom Lua script.
   # That script is written to mimic the built-in indexer behavior,
   # it will take a template from the index_template option.
-  file = "helpers/blog-index.lua"
+#  file = "helpers/blog-index.lua"
 
 # This view displays the first ten entries on the main page
 [index.views.blog-summary]
