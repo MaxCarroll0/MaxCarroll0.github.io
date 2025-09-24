@@ -4,7 +4,7 @@
 
 [settings]
   # Require soupault 5.0.0 or later
-  soupault_version = "5.0.0"
+  soupault_version = "5.1.0"
 
   # Show build progress
   verbose = true
