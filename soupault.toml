@@ -156,6 +156,14 @@
   default = "Sample site"
   append = " &mdash; Sample site"
 
+# Add link to git
+[widgets.source-link]
+  widget = "source-link"
+  selector = "div#source-link"
+  link_text = "Source link for this page"
+  repo_base = "https://github.com/MaxCarroll0/MaxCarroll0.github.io/tree/main"
+
+
 # Inserts the contents of templates/header.html right before the <main> element
 # There's a variety of actions, including prepend_child and replace_content
 [widgets.insert-header]
@@ -262,6 +270,12 @@
   heading_link_class = "here"
 
   use_heading_slug = true
+
+[widgets.list-to-tree]
+  widget = "collapsible-list"
+  selector = ["ul.tree", "ol.tree"]
+  collapsible_class = "collapsible"
+
 
 [widgets.insert-footnotes-container]
   widget = "insert-if"
