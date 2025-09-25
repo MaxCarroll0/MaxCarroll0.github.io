@@ -147,6 +147,88 @@
   file = "plugins/git-timestamp.lua"
 
 ## Widgets
+# Creates a table of contents from the page headings
+# and inserts it in the element with id="sidebar" as per the selector and action options.
+[widgets.toc]
+  widget = "toc"
+
+  selector = "#sidebar"
+  action = "prepend_child"
+
+  min_level = 2
+  max_level = 3
+
+  toc_list_class = "toc"
+  toc_class_levels = false
+
+  # Insert a link to the current section next to each heading for easy copying.
+  # When ids are persistent, deep linking is not bad, it's great.
+  heading_links = true
+  heading_link_class = "here"
+  heading_link_text = "# "
+
+  # Use slugified <h*> tag content for the id
+  # is a heading doesn't have an id attribute.
+  #
+  # If a heading does have an id, like <h2 id="ip-route">
+  # that id is preserved and used in the ToC link.
+  use_heading_slug = true
+
+  # Wrap every sub-list in a <li>, as the HTML standard demands.
+  valid_html = true
+
+
+# This widget comes from plugins/collapsible-list.lua
+#
+# It converts nested <ul>/<ol> elements to a tree with foldable nodes
+# using HTML5 <details>/<summary> elements.
+[widgets.toc-collapse]
+  after = "toc"
+  widget = "collapsible-list"
+  collapsible_class = "collapsible"
+
+
+
+# Having chunks of the page wrapped in <div> or some other block elements
+# make styling a lot simpler.
+# However, writing those wrapper elements by hand is annoying.
+# That's where the plugin from plugins/wrap-sections.lua comes into play.
+#
+# Here it takes this:
+#
+# <h3>First heading</h3>
+# <p>First paragraph</p>
+# <h3>Second heading</h3>
+# <p>First paragraph</p>
+#
+# and converts it to this:
+#
+# <div class="subsection">
+#   <h3>First heading</h3>
+#   <p>First paragraph</p>
+# </div>
+# <div class="subsection">
+#  <h3>Second heading</h3>
+# ...
+[widgets.wrap-subsections]
+  widget = "wrap-sections"
+  selector = "main"
+  wrapper_element = "div"
+  level = 3
+  class = "subsection"
+
+# Same, but for the <h2> level
+# One use for it is the different background color for even subsections of a section.
+# Applying :nth-child(even) to subsections without wrapping them in section may create an awkward look
+# when a previous section has an odd number of subsections: in that case it's the _first_ child
+# that ends up colored differently.
+# The only way to prevent that is to make all subsection elements children of a single parent.
+[widgets.wrap-sections]
+  widget = "wrap-sections"
+  selector = "main"
+  wrapper_element = "div"
+  level = 2
+  class = "section"
 
 # Takes the content of the first #page-title element or <h1> and inserts it into the <title>
 # default is used if page has no elements matching those selectors.
@@ -157,8 +239,8 @@
   after = 'make-post-header'
 
   selector = ["#page-title", "h1"]
-  default = "Sample site"
-  append = " &mdash; Sample site"
+  default = "Max Carroll's Personal Website"
+  append = " &mdash; Max Carroll"
 
 # Add link to git
 [widgets.source-link]
