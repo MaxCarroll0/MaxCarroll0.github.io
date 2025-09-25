@@ -25,7 +25,6 @@ that pandoc is installed on your system.
 You can switch to a different Markdown convertor or add convertors for more formats in the `[preprocessors]` section
 of `soupault.toml`. See the [page preprocessors](https://soupault.app/reference-manual/#page-preprocessors)
 section of the reference manual for details.
-
 ## Creating new posts
 
 Create a new page under `site/blog`, e.g. `site/blog/my-post.md`. Instead of "front matter", you will use a custom
@@ -47,7 +46,6 @@ This is a post...
 
 However, you can also embed those tags in the post content and still have a generated header. See `site/blog/second-post.md`
 for an example.
-
 <h2 id="latest-entries-header">Latest posts</h2>
 
 <div id="latest-blog-entries">

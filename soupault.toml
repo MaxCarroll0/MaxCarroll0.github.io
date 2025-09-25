@@ -3,8 +3,8 @@
 ## Global settings
 
 [settings]
-  # Require soupault 5.0.0 or later
-  soupault_version = "5.0.0"
+  # Require soupault 5.1.0 or later
+  soupault_version = "5.1.0"
 
   # Show build progress
   verbose = true
@@ -142,6 +142,10 @@
     </dl>
   """
 
+## Plugins
+[plugins.git-timestamp]
+  file = "plugins/git-timestamp.lua"
+
 ## Widgets
 
 # Takes the content of the first #page-title element or <h1> and inserts it into the <title>
@@ -162,6 +166,14 @@
   selector = "div#source-link"
   link_text = "Source link for this page"
   repo_base = "https://github.com/MaxCarroll0/MaxCarroll0.github.io/tree/main"
+
+# Git update time
+[widgets.last-modified]
+  widget = "git-timestamp"
+  timestamp_container_selector = "body"
+  manual_timestamp_selector = "time#last-modified"
+  timestamp_format = "Last modified on %s"
+  git_date_format = "short"
 
 
 # Inserts the contents of templates/header.html right before the <main> element
