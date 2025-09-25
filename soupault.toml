@@ -164,7 +164,7 @@
   # Jingoo template for rendering extracted metadata
   index_template = """
     {% for e in entries %}
-    <h2><a href="{{e.url}}">{{e.paper_title}}</a>[<a href="{{e.conference_url}}">{{e.conference}}</a>]</h2>
+    <h2><a href="{{e.url}}">{{e.paper_title}}</a>[{{e.paper_conference}}]</h2>
     <div><strong>Date:</strong> {{e.paper_date}}</div>
     {% if e.paper_authors %}
     <div class="paper-authors">
@@ -371,7 +371,7 @@
   paper_header_template = '''
     <div id="paper-header">
       <h1 id="paper-title">{{title}}</h1>
-      <div><strong>Published:</strong> <time id="paper-date" datetime="{{date}}">{{date}}</time> in <strong><a href="{{conference_url}}" id="paper-conference">{{conference}}</a></strong></div>
+      <div><strong>Published:</strong> <time id="paper-date" datetime="{{date}}">{{date}}</time> in <strong><span id="paper-conference"><a href="{{conference_url}}">{{conference}}</a></strong></div>
       <div><strong>Pages:</strong> <span id="paper-pages">{{pages}}</span></div>
       {% if authors %}
         <div class="authors">
