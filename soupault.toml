@@ -147,6 +147,55 @@
   file = "plugins/git-timestamp.lua"
 
 ## Widgets
+# Takes the content of the first #page-title element or <h1> and inserts it into the <title>
+# default is used if page has no elements matching those selectors.
+[widgets.set-page-title]
+  widget = "title"
+
+  # Must run only after the header with an <h1 id="post-title"> element is inserted, which affects the blog section pages
+  after = 'make-post-header'
+
+  selector = ["#page-title", "h1"]
+  default = "Max Carroll's Personal Website"
+  append = " &mdash; Max Carroll"
+
+# Add link to git
+[widgets.source-link]
+  widget = "source-link"
+  selector = "div#source-link"
+  link_text = "Source link for this page"
+  repo_base = "https://github.com/MaxCarroll0/MaxCarroll0.github.io/tree/main"
+
+# Git update time
+[widgets.last-modified]
+  widget = "git-timestamp"
+  timestamp_container_selector = "body"
+  manual_timestamp_selector = "time#last-modified"
+  timestamp_format = "Last modified on %s"
+  git_date_format = "short"
+
+
+# Inserts the contents of templates/header.html right before the <main> element
+# There's a variety of actions, including prepend_child and replace_content
+[widgets.insert-header]
+  widget = "include"
+
+  selector = "main"
+  action = "insert_before"
+  file = "templates/header.html"
+
+# This widget comes from plugins/section-link-highlight.lua
+# It highlights the "active" link in the navigation menu,
+# that is, the link that matches the current page URL
+[widgets.highlight-active-link]
+  widget = "section-link-highlight"
+
+  # Must run only after the header with a navigation menu is inserted
+  after = ["insert-header"]
+
+  selector = "nav"
+  active_link_class = "nav-active"
+
 # Creates a table of contents from the page headings
 # and inserts it in the element with id="sidebar" as per the selector and action options.
 [widgets.toc]
@@ -229,55 +278,6 @@
   wrapper_element = "div"
   level = 2
   class = "section"
-
-# Takes the content of the first #page-title element or <h1> and inserts it into the <title>
-# default is used if page has no elements matching those selectors.
-[widgets.set-page-title]
-  widget = "title"
-
-  # Must run only after the header with an <h1 id="post-title"> element is inserted, which affects the blog section pages
-  after = 'make-post-header'
-
-  selector = ["#page-title", "h1"]
-  default = "Max Carroll's Personal Website"
-  append = " &mdash; Max Carroll"
-
-# Add link to git
-[widgets.source-link]
-  widget = "source-link"
-  selector = "div#source-link"
-  link_text = "Source link for this page"
-  repo_base = "https://github.com/MaxCarroll0/MaxCarroll0.github.io/tree/main"
-
-# Git update time
-[widgets.last-modified]
-  widget = "git-timestamp"
-  timestamp_container_selector = "body"
-  manual_timestamp_selector = "time#last-modified"
-  timestamp_format = "Last modified on %s"
-  git_date_format = "short"
-
-
-# Inserts the contents of templates/header.html right before the <main> element
-# There's a variety of actions, including prepend_child and replace_content
-[widgets.insert-header]
-  widget = "include"
-
-  selector = "main"
-  action = "insert_before"
-  file = "templates/header.html"
-
-# This widget comes from plugins/section-link-highlight.lua
-# It highlights the "active" link in the navigation menu,
-# that is, the link that matches the current page URL
-[widgets.highlight-active-link]
-  widget = "section-link-highlight"
-
-  # Must run only after the header with a navigation menu is inserted
-  after = ["insert-header"]
-
-  selector = "nav"
-  active_link_class = "nav-active"
 
 # Inserts the contents of templates/footer.html at the end of the <body>
 [widgets.insert-footer]
