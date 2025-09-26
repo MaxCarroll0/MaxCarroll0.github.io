@@ -51,6 +51,7 @@
 
   # Number of "lastest post" to display on the main page
   blog_summary_max_entries = 10
+  papers_summary_max_entries = 4
 
   ## Atom feed settings
   atom_feeds = false
@@ -154,11 +155,31 @@
     <dl>
       {% for e in sublist(0, limit, entries) %}
       <dt>{{e.date}}</dt>
-      <dd> <a href="{{e.url}}">{{e.post_title}}</a> </dd>
+      <dd> <a href="{{e.url}}">{{e.post_title}}</a> <i>(Reading time: e.post_reading_time)</i></dd>
       {% endfor %}
       </ul>
     </dl>
   """
+
+# This view displays the first ten entries on the main page
+[index.views.papers-summary]
+  index_selector = "#latest-paper-entries"
+
+  section = "papers"
+  include_subsections = true
+
+  # In this case index_template is a soupault built-in
+  index_template = """
+    {% set limit = int(soupault_config.custom_options.papers_summary_max_entries) %}
+    <dl>
+      {% for e in sublist(0, limit, entries) %}
+      <dt>{{e.date}}</dt>
+      <dd> <a href="{{e.url}}">{{e.paper_title}}]</a> [{{e.paper_conference}} </dd>
+      {% endfor %}
+      </ul>
+    </dl>
+  """
+
 
 ## TODO: Remove redundancy
 [index.views.papers-index-workshops]
@@ -318,12 +339,23 @@
   link_text = "Source link for this page"
   repo_base = "https://github.com/MaxCarroll0/MaxCarroll0.github.io/tree/main"
 
+[widgets.breadcrumbs]
+  widget = "breadcrumbs"
+  
+  selector = "#breadcrumbs"
+  prepend = ".. / "
+  append = " /"
+  between = " / "
+  breadcrumb_template = '<a href="{{url}}">{{name}}</a>'
+  min_depth = 1
+
 # Git update time
 [widgets.last-modified]
   widget = "git-timestamp"
-  timestamp_container_selector = "body"
+  after = ['insert-footer']
+  timestamp_container_selector = "#last-updated"
   manual_timestamp_selector = "time#last-modified"
-  timestamp_format = "Last modified on %s"
+  timestamp_format = "<i>(Last modified on %s)<i>"
   git_date_format = "short"
 
 
@@ -440,7 +472,7 @@
 
 [widgets.make-post-header]
   widget = "post-header"
-  section = "blog/*"
+  section = "blog"
   include_subsections = true
   exclude_page = "blog/index.md"
 
@@ -472,7 +504,9 @@
   paper_header_template = '''
     <div id="paper-header">
       <h1 id="paper-title">{{title}}</h1>
-      <div><strong>Published:</strong> <time id="paper-date" datetime="{{date}}">{{date}}</time> in <strong><span id="paper-conference"><a href="{{conference_url}}">{{conference}}</a></strong> (<span class="paper-type">{{paper_type}}</span>)</div>
+      <div><strong>Published:</strong> <time id="paper-date" datetime="{{date}}">{{date}}</time> in <strong><span id="paper-conference"><a href="{{conference_url}}">{{conference}}</a></strong> 
+<span {% if paper_type == "Other" %} style="display:none;" {% endif %}> (<span class="paper-type">{{paper_type}}</span>)</span>
+    </div>
       <div><strong>Pages:</strong> <span id="paper-pages">{{pages}}</span></div>
       {% if authors %}
         <div class="authors">
@@ -486,7 +520,7 @@
         <div class="paper-artifacts">
          <span><strong>Artifacts / Links: </strong> </span>
          {%- for artifact in artifacts -%}
-           <span class="paper-artifact"><a><span>{{artifact[0]}}, {{artifact[1]}}</a></span>{% if not loop.last %}, {% endif %}
+            <span class="paper-artifact"><a href="{{artifact[2]}}" {% if artifact[0] == "Artifact" %} download {% endif %}> {{artifact[1]}}</a></span> {% if not loop.last %}, {% endif %}
          {%- endfor -%}
          </div>
         {% endif %}
@@ -507,7 +541,7 @@
     {% if pdf_path %}
     <div id="paper-pdf">
       <h2>Embedded PDF</h2>
-      <object data="/assets/{{pdf_path}}"
+      <object data="{{pdf_path}}"
               type="application/pdf"  
               style="height:90vh; width:100%; border:none"
               title="Embedded PDF Viewer" 
@@ -516,7 +550,7 @@
                 style="width:100vw; height:90vh; border:none"
                 class="pdf-box"></iframe>
         <script>
-          const absoluteUrl = window.location.origin + "/assets/{{pdf_path}}";
+          const absoluteUrl = window.location.origin + "{{pdf_path}}";
           const iframe = document.getElementById("google-pdf-viewer");
           iframe.src = `https://docs.google.com/viewer?url=${encodeURIComponent(absoluteUrl)}&embedded=true`;
         </script>

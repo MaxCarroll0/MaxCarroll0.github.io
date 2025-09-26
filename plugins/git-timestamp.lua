@@ -37,7 +37,7 @@ git_date_format = config["git_date_format"]
 
 
 if not timestamp_format then
-  timestamp_format = "<p>Last modified: %s</p>"
+  timestamp_format = "(<p><i>Last modified: %s</i></p>)"
 end
 
 if not timestamp_container_selector then
