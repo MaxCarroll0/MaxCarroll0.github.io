@@ -412,7 +412,7 @@
               title="Embedded PDF Viewer" 
               class="pdf-box">
         <iframe id="google-pdf-viewer" 
-                style="width:100vh; height:90vh; border:2px solid black"
+                style="width:100vw; height:90vh; border:2px solid black"
                 class="pdf-box"></iframe>
         <script>
           const absoluteUrl = window.location.origin + "/assets/{{pdf_path}}";
