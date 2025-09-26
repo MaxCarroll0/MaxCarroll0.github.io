@@ -1,52 +1,22 @@
-This is a sample [soupault](https://soupault.app) blog setup that you can make your own.
+## About Me
+(NOTE: ADD PHOTO)
 
-You can edit this page content in `site/index.md`. For example, greet your readers
-and introduce yourself and your blog.
+I'm a current part III (masters) student reading Computer Science at the [University of Cambridge](https://www.cam.ac.uk/) where I also just completed my undergrad.
 
-## Basics
+My academic interests orbit around **discrete mathematics** (algebra, category theory, logic, type theory) and **programming language design**. I'm particularly interested in type systems, and features which allow greater abstractionn.  
+Both form a theoretical standpoint, and their implementation in interpreters and compilers, with a focus on applying these ideas to actually improve programming __productivity__ and __expressivity__.
 
-* The configuration is in the `soupault.toml` file. Make sure to read it and tweak it if you want.
-* Page source files are in `site/`.
-* The page template is in `templates/main.html`.
-* The header and the footer are in `templates/header.html` and `templates/footer.html`, respectively.
-* Navigation menu link highlighting is done by the `section-link-highlight` plugin.
-* Lua plugins are stored in `plugins/`. You can find more plugins at [soupault.app/plugins](https://www.soupault.app/plugins/).
+Beyond that, I enjoy general programming<fn>Especially functional programming. Primarily in OCaml, but also F# and Haskell.<\fn>, human-computer interaction, distributed systems, and databases.
 
-## Styling
+If you’re curious, I also keep a page of my [favourite books, papers, and blogs](/books/) on these specific areas of computer science, ranging from introductory to more advanced.
 
-The CSS file is in `site/style.css`. Soupault copies all non-page files<fn id="asset-files">That is, files with extensions not mentioned in
-<code>settings.page_file_extensions</code>.</fn> to the `build/` directory unchanged, so it doesn't need a dedicated assets directory.
+Recently, I've been researching improving understanding of type systems via interactive code highlighting systems,<fn><With well-defined semantic foundations./fn> applied to an in-development research language: [Hazel](https://hazel.org).  
+In the future I'd love to work more widely on some other programming languages, to hopefully improve their power and usability.
 
-## Dependencies
+## Recent Activity
+My latest [blog posts](/blog/) & [research](/papers/) is listed below. Expecting these lists to expand over the next few years!
 
-This setup uses [pandoc](https://pandoc.org) for Markdown to HTML conversion. To build it locally, please make sure
-that pandoc is installed on your system.
-
-You can switch to a different Markdown convertor or add convertors for more formats in the `[preprocessors]` section
-of `soupault.toml`. See the [page preprocessors](https://soupault.app/reference-manual/#page-preprocessors)
-section of the reference manual for details.
-## Creating new posts
-
-Create a new page under `site/blog`, e.g. `site/blog/my-post.md`. Instead of "front matter", you will use a custom
-HTML "microformat" for the metadata.<fn id="post-metadata">This isn't a built-in feature of soupault, but rather a feature
-of this blueprint, implemented with a mix of Lua plugins and soupault configuration. See <kbd>plugins/post-header.lua</kbd>
-and the <kbd>[index]</kbd> section in <kbd>soupault.toml</kbd>
-
-In the simplest case it will look like this:
-
-```html
-<post-metadata>
-  <post-title>My post</post-title>
-  <post-date>1970-01-01</post-date>
-  <post-tags>test, post</post-tags>
-</post-metadata>
-
-This is a post...
-```
-
-However, you can also embed those tags in the post content and still have a generated header. See `site/blog/second-post.md`
-for an example.
-<h2 id="latest-entries-header">Latest posts</h2>
+<h3 id="latest-entries-header">Latest posts</h2>
 
 <div id="latest-blog-entries">
   <!-- The blog-summary index view will insert titles of the latest 10 entries here.
@@ -55,5 +25,6 @@ for an example.
     -->
 </div>
 
-<h2 id="latest-papers-entries-header">Latest papers</h2>
+<h3 id="latest-papers-entries-header">Latest papers</h3>
 <div id="latest-papers-entries"></div>
+
