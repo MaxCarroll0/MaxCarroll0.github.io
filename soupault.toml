@@ -114,6 +114,7 @@
 
   # Only extract metadata from pages in site/blog/*
   section = "blog"
+  include_subsections = true  
 
   # Jingoo template for rendering extracted metadata
   index_template = """
@@ -145,6 +146,7 @@
   index_selector = "#latest-blog-entries"
 
   section = "blog"
+  include_subsections = true
 
   # In this case index_template is a soupault built-in
   index_template = """
@@ -164,6 +166,7 @@
 
   ## Extract metadata from site/papers
   section = "papers"
+  include_subsections = true
 
   # Jingoo template for rendering extracted metadata
   index_template = """
@@ -208,6 +211,7 @@
 
   ## Extract metadata from site/papers
   section = "papers"
+  include_subsections = true
 
   # Jingoo template for rendering extracted metadata
   index_template = """
@@ -252,6 +256,7 @@
 
   ## Extract metadata from site/papers
   section = "papers"
+  include_subsections = true
 
   # Jingoo template for rendering extracted metadata
   index_template = """
@@ -435,7 +440,8 @@
 
 [widgets.make-post-header]
   widget = "post-header"
-  section = "blog/"
+  section = "blog/*"
+  include_subsections = true
   exclude_page = "blog/index.md"
 
   content_container_selector = "main"
@@ -457,7 +463,8 @@
 
 [widgets.make-paper-header]
   widget = "paper-header"
-  section = "papers/"
+  section = "papers"
+  include_subsections = true
   exclude_page = "papers/index.md"
 
   content_container_selector = "main"
