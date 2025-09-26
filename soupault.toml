@@ -408,11 +408,11 @@
       <h2>Embedded PDF</h2>
       <object data="/assets/{{pdf_path}}"
               type="application/pdf"  
-              style="height:100vh; width:100%; border:2px solid black"
+              style="height:90vh; width:100%; border:2px solid black"
               title="Embedded PDF Viewer" 
               class="pdf-box">
         <iframe id="google-pdf-viewer" 
-                style="width:100%; height:100vh; border:2px solid black"
+                style="width:100vh; height:90vh; border:2px solid black"
                 class="pdf-box"></iframe>
         <script>
           const absoluteUrl = window.location.origin + "/assets/{{pdf_path}}";
