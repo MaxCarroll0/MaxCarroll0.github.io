@@ -401,7 +401,7 @@
       <p id="paper-abstract">{{abstract}}</p>
     </div>
 '''
-
+  
   paper_pdf_template = '''
     {% if pdf_path %}
     <div id="paper-pdf">
@@ -411,11 +411,17 @@
               style="height:100vh; width:100%; border:2px solid black"
               title="Embedded PDF Viewer" 
               class="pdf-box">
-        <iframe src="https://docs.google.com/viewer?url={{url}}/assets/{{pdf_path}}&embedded=true" 
+        <iframe id="google-pdf-viewer" 
                 style="width:100%; height:100vh; border:2px solid black"
                 class="pdf-box"></iframe>
+        <script>
+          const absoluteUrl = window.location.origin + "/assets/{{pdf_path}}";
+          const iframe = document.getElementById("google-pdf-viewer");
+          iframe.src = `https://docs.google.com/viewer?url=${encodeURIComponent(absoluteUrl)}&embedded=true`;
+        </script>
       </object>
-    </div>  
+    
+     </div>  
     {% endif %}
 '''
 
