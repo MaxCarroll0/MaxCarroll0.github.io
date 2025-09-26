@@ -9,7 +9,7 @@
   <paper-pdf>/assets/papers/Carroll-undergrad_dissertation.pdf</paper-pdf>
 
 
-## Notes: 
+## Notes 
 Completed as part of a __Bachelor of Arts__ in Computer Science at Cambridge university over the 2024-2025 year. Won the **2nd place prize** with a score of 92.5%.
 
 I am grateful for help provided by my supervisors ([Anil Madhavapeddy](anil.recoil.org) and [Patrick Ferris](patrick.sirref.org)) throughout this project. Especially Patrick's creation of a basic [OCaml to Hazel transpiler](https://patrick.sirref.org/hazel-of-ocaml/index.xml), that supported translation of __both__ well-typed and ill-typed OCaml code.

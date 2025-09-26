@@ -54,3 +54,6 @@ for an example.
        edit the [index.views.blog-summary] section in soupault.toml
     -->
 </div>
+
+<h2 id="latest-papers-entries-header">Latest papers</h2>
+<div id="latest-papers-entries"></div>

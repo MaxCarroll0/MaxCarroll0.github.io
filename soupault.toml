@@ -155,7 +155,7 @@
     <dl>
       {% for e in sublist(0, limit, entries) %}
       <dt>{{e.date}}</dt>
-      <dd> <a href="{{e.url}}">{{e.post_title}}</a> <i>(Reading time: e.post_reading_time)</i></dd>
+      <dd> <a href="{{e.url}}">{{e.post_title}}</a> <i>(Reading time: {{e.post_reading_time}})</i></dd>
       {% endfor %}
       </ul>
     </dl>
@@ -163,7 +163,7 @@
 
 # This view displays the first ten entries on the main page
 [index.views.papers-summary]
-  index_selector = "#latest-paper-entries"
+  index_selector = "#latest-papers-entries"
 
   section = "papers"
   include_subsections = true
@@ -174,7 +174,7 @@
     <dl>
       {% for e in sublist(0, limit, entries) %}
       <dt>{{e.date}}</dt>
-      <dd> <a href="{{e.url}}">{{e.paper_title}}]</a> [{{e.paper_conference}} </dd>
+      <dd> <a href="{{e.url}}">{{e.paper_title}}</a> <i>[{{e.paper_conference}}]</i> </dd>
       {% endfor %}
       </ul>
     </dl>
