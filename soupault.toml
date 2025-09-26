@@ -329,7 +329,7 @@
   after = ['make-post-header', 'make-paper-header']
 
   selector = ["#page-title", "h1"]
-  default = "Max Carroll's Personal Website"
+  default = "Max Carroll"
   append = " &mdash; Max Carroll"
 
 # Add link to git
