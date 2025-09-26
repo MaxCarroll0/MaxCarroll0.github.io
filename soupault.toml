@@ -177,7 +177,7 @@
     <div><strong>Pages:</strong> {{e.paper_pages}}</div>
     {% if e.paper_artifacts %}
     <div class="paper-artifacts">
-       <strong>Artifacts: </strong>
+       <strong>Artifacts / Links: </strong>
        {%- for artifact in e.paper_artifacts -%}
         {{artifact}}{% if not loop.last %}, {% endif %}
        {%- endfor -%}
@@ -383,7 +383,7 @@
         {% endif %}
       {% if artifacts %}
         <div class="paper-artifacts">
-         <span><strong>Artifacts:</strong> </span>
+         <span><strong>Artifacts / Links: </strong> </span>
          {%- for artifact in artifacts -%}
            <span class="paper-artifact"><a><span>{{artifact[0]}}, {{artifact[1]}}</a></span>{% if not loop.last %}, {% endif %}
          {%- endfor -%}
@@ -400,6 +400,18 @@
       <h2>Abstract</h2>
       <p id="paper-abstract">{{abstract}}</p>
     </div>
+'''
+
+  paper_pdf_template = '''
+    {% if pdf_path %}
+    <div id="paper-pdf">
+      <h2>Embedded PDF</h2>
+      <iframe src="/assets/{{pdf_path}}"  
+              style="height:100vh; width:100%; border:2px solid black"
+              title="Embedded PDF Viewer" 
+              class="pdf-box"></iframe>
+    </div>  
+    {% endif %}
 '''
 
 

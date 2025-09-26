@@ -4,6 +4,10 @@ if not config["paper_header_template"] then
   Plugin.fail("paper_header_template option must be specified")
 end
 
+if not config["paper_pdf_template"] then
+  Plugin.fail("paper_pdf_tempalte option must be specified")
+end
+
 if not config["content_container_selector"] then
   Plugin.fail("content_container_selector option must be specified")
 end
@@ -93,6 +97,11 @@ paper_pages = HTML.select_one(page, "paper-pages")
 env["pages"] = HTML.inner_html(paper_pages)
 clean_up(paper_pages)
 
+--- Handle the <paper-pdf>
+paper_pdf_path = HTML.select_one(page, "paper-pdf")
+env["pdf_path"] = HTML.inner_html(paper_pdf_path)
+clean_up(paper_pdf_path)
+
 --- Handle the <paper-conference>name, url</paper-conference>
 paper_conference = HTML.select_one(page, "paper-conference")
 conference = HTML.strip_tags(paper_conference)
@@ -109,5 +118,8 @@ end
 
 -- Render the paper header and add it to the page
 tmpl = config["paper_header_template"]
+tmpl_pdf = config["paper_pdf_template"]
 header = HTML.parse(String.render_template(tmpl, env))
+footer = HTML.parse(String.render_template(tmpl_pdf, env))
 HTML.prepend_child(content_container, header)
+HTML.append_child(content_container, footer)
