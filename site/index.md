@@ -6,11 +6,11 @@ I'm a current part III (masters) student reading Computer Science at the [Univer
 My academic interests orbit around **discrete mathematics** (algebra, category theory, logic, type theory) and **programming language design**. I'm particularly interested in type systems, and features which allow greater abstractionn.  
 Both form a theoretical standpoint, and their implementation in interpreters and compilers, with a focus on applying these ideas to actually improve programming __productivity__ and __expressivity__.
 
-Beyond that, I enjoy general programming<fn>Especially functional programming. Primarily in OCaml, but also F# and Haskell.<\fn>, human-computer interaction, distributed systems, and databases.
+Beyond that, I enjoy general programming<fn>Especially functional programming. Primarily in OCaml, but also F# and Haskell.</fn>, human-computer interaction, distributed systems, and databases.
 
 If you’re curious, I also keep a page of my [favourite books, papers, and blogs](/books/) on these specific areas of computer science, ranging from introductory to more advanced.
 
-Recently, I've been researching improving understanding of type systems via interactive code highlighting systems,<fn><With well-defined semantic foundations./fn> applied to an in-development research language: [Hazel](https://hazel.org).  
+Recently, I've been researching improving understanding of type systems via interactive code highlighting systems,<fn>With well-defined semantic foundations.</fn> applied to an in-development research language: [Hazel](https://hazel.org).  
 In the future I'd love to work more widely on some other programming languages, to hopefully improve their power and usability.
 
 ## Recent Activity
