@@ -77,13 +77,13 @@ Table.apply_to_values(split_on_bar, artifacts)
 env["artifacts"] = artifacts
 clean_up(paper_artifacts)
 
--- Extract and clean up the <paper-keywords> element
--- It's supposed to look like <paper-keywords>keyword1, keyword2</paper-keywords>
+-- Extract and clean up the <tags> element
+-- It's supposed to look like <tags>keyword1, keyword2</tags>
 -- We extract the tags string and split it into individual keywords
-paper_keywords = HTML.select_one(page, "paper-keywords")
+paper_keywords = HTML.select_one(page, "tags")
 keywords = HTML.strip_tags(paper_keywords)
 keywords = split_on_comma(keywords)
-env["keywords"] = keywords
+env["tags"] = keywords
 clean_up(paper_keywords)
 
 
@@ -96,6 +96,11 @@ clean_up(paper_abstract)
 paper_pages = HTML.select_one(page, "paper-pages")
 env["pages"] = HTML.inner_html(paper_pages)
 clean_up(paper_pages)
+
+--- Handle the <paper-type>
+paper_type = HTML.select_one(page, "paper-type")
+env["paper_type"] = HTML.inner_html(paper_type)
+clean_up(paper_type)
 
 --- Handle the <paper-pdf>
 paper_pdf_path = HTML.select_one(page, "paper-pdf")

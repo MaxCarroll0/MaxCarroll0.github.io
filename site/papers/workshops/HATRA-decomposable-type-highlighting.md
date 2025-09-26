@@ -2,7 +2,8 @@
   <paper-date>2025-09-26</paper-date>
   <paper-pages>9</paper-pages>
   <paper-conference>HATRA 2025, https://conf.researchr.org/home/icfp-splash-2025/hatra-2025</paper-conference>
-  <paper-keywords>TODO</paper-keywords>
+  <paper-type>Workshop</paper-type>
+  <tags>Programming Language Design, Type Systems, HCI, Type Errors, Hazel, Bidirectional Types, Gradual Types, Dynamic Types, Lattices</tags>
   <paper-abstract>We explore how to provide programmers with an interactive interface for explaining the process by which
 static types and dynamic casts are derived, with the goal of improving the debugging of static and dynamic
 type errors. To this end, we define mathematical foundations for a decomposable highlighting system within

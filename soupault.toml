@@ -88,17 +88,20 @@
   post_title = { selector = ["#post-title", "h1"] }
   post_excerpt = { selector = ["#post-excerpt", "p"] }
   post_date = { selector = ["#post-date", "time"] }
-  post_tags = { selector = ".post-tag", select_all = true }
 
   post_reading_time = { selector = "#post-reading-time" }
+
+  
+  ## both
+  tags = { selector = ".tag", select_all = true }
 
   # papers
   paper_title = { selector = ["#paper-title", "h1"] }
   paper_date = { selector = ["#paper-date", "time"] }
   paper_conference = { selector = ["#paper-conference"] }
+  paper_type = {selector = ".paper-type"}
   paper_abstract = { selector = ["#paper-abstract", "p"] }
-  paper_authors = { selector = ".paper-author", select_all = true }  
-  paper_keywords = { selector = ".paper-keyword", select_all = true }  
+  paper_authors = { selector = ".paper-author", select_all = true }    
 
   paper_artifacts = { selector = ".paper-artifact", select_all = true }
 
@@ -117,11 +120,11 @@
     {% for e in entries %}
     <h2><a href="{{e.url}}">{{e.post_title}}</a></h2>
     <div><strong>Last update:</strong> {{e.post_date}}</div>
-    {% if e.post_tags %}
+    {% if e.tags %}
     <div class="post-tags">
        <strong>Tags: </strong>
-       {%- for tag in e.post_tags -%}
-         <a href="/blog/tag/{{tag}}"><span class="post-tag">{{tag}}</span></a>{% if not loop.last %}, {% endif %}
+       {%- for tag in e.tags -%}
+         <a href="/tags/{{tag}}"><span class="tag">{{tag}}</span></a>{% if not loop.last %}, {% endif %}
        {%- endfor -%}
     </div>
     {% endif %}
@@ -155,8 +158,9 @@
     </dl>
   """
 
-[index.views.papers-index]
-  index_selector = "#paper-entries"
+## TODO: Remove redundancy
+[index.views.papers-index-workshops]
+  index_selector = "#paper-entries-workshops"
 
   ## Extract metadata from site/papers
   section = "papers"
@@ -164,7 +168,8 @@
   # Jingoo template for rendering extracted metadata
   index_template = """
     {% for e in entries %}
-    <h2><a href="{{e.url}}">{{e.paper_title}}</a>[{{e.paper_conference}}]</h2>
+    {% if e.paper_type == "Workshop" %}
+    <h3><a href="{{e.url}}">{{e.paper_title}}</a>[{{e.paper_conference}}]</h2>
     <div><strong>Date:</strong> {{e.paper_date}}</div>
     {% if e.paper_authors %}
     <div class="paper-authors">
@@ -185,12 +190,101 @@
     {% endif %}
 
     {% if e.paper_keywords %}
-    <div class="post-tagss">
+    <div class="tags">
        <strong>Keywords: </strong>
-       {%- for keyword in e.paper_keywords -%}
-         <a href="site/papers/{{keyword}}"><span class="keyword">{{keyword}}</span></a>{% if not loop.last %}, {% endif %}
+       {%- for tag in e.tags -%}
+         <a href="/tags/{{tag}}"><span class="tag">{{tag}}</span></a>{% if not loop.last %}, {% endif %}
        {%- endfor -%}
     </div>
+    {% endif %}
+    {% endif %}
+    {% endfor %}
+  """
+
+
+## TODO: Remove redundancy
+[index.views.papers-index-conferences]
+  index_selector = "#paper-entries-conferences"
+
+  ## Extract metadata from site/papers
+  section = "papers"
+
+  # Jingoo template for rendering extracted metadata
+  index_template = """
+    {% for e in entries %}
+    {% if e.paper_type == "Conference" %}
+    <h3><a href="{{e.url}}">{{e.paper_title}}</a>[{{e.paper_conference}}]</h2>
+    <div><strong>Date:</strong> {{e.paper_date}}</div>
+    {% if e.paper_authors %}
+    <div class="paper-authors">
+       <strong>Authors: </strong>
+       {%- for author in e.paper_authors -%}
+         {{author}}{% if not loop.last %}, {% endif %}
+       {%- endfor -%}
+    </div>
+    {% endif %}
+    <div><strong>Pages:</strong> {{e.paper_pages}}</div>
+    {% if e.paper_artifacts %}
+    <div class="paper-artifacts">
+       <strong>Artifacts / Links: </strong>
+       {%- for artifact in e.paper_artifacts -%}
+        {{artifact}}{% if not loop.last %}, {% endif %}
+       {%- endfor -%}
+    </div>
+    {% endif %}
+
+    {% if e.paper_keywords %}
+    <div class="tags">
+       <strong>Keywords: </strong>
+       {%- for tag in e.tags -%}
+         <a href="/tags/{{tag}}"><span class="tag">{{tag}}</span></a>{% if not loop.last %}, {% endif %}
+       {%- endfor -%}
+    </div>
+    {% endif %}
+    {% endif %}
+    {% endfor %}
+  """
+
+
+## TODO: Remove redundancy
+[index.views.papers-index-others]
+  index_selector = "#paper-entries-others"
+
+  ## Extract metadata from site/papers
+  section = "papers"
+
+  # Jingoo template for rendering extracted metadata
+  index_template = """
+    {% for e in entries %}
+    {% if e.paper_type == "Other" %}
+    <h3><a href="{{e.url}}">{{e.paper_title}}</a>[{{e.paper_conference}}]</h2>
+    <div><strong>Date:</strong> {{e.paper_date}}</div>
+    {% if e.paper_authors %}
+    <div class="paper-authors">
+       <strong>Authors: </strong>
+       {%- for author in e.paper_authors -%}
+         {{author}}{% if not loop.last %}, {% endif %}
+       {%- endfor -%}
+    </div>
+    {% endif %}
+    <div><strong>Pages:</strong> {{e.paper_pages}}</div>
+    {% if e.paper_artifacts %}
+    <div class="paper-artifacts">
+       <strong>Artifacts / Links: </strong>
+       {%- for artifact in e.paper_artifacts -%}
+        {{artifact}}{% if not loop.last %}, {% endif %}
+       {%- endfor -%}
+    </div>
+    {% endif %}
+
+    {% if e.paper_keywords %}
+    <div class="tags">
+       <strong>Keywords: </strong>
+       {%- for tag in e.tags -%}
+         <a href="/tags/{{tag}}"><span class="tag">{{tag}}</span></a>{% if not loop.last %}, {% endif %}
+       {%- endfor -%}
+    </div>
+    {% endif %}
     {% endif %}
     {% endfor %}
   """
@@ -351,10 +445,10 @@
       <h1 id="post-title">{{title}}</h1>
       <div><strong>Last update:</strong> <time id="post-date" datetime="{{date}}">{{date}}</time></div>
       {% if tags %}
-        <div class="post-tags">
+        <div class="tags">
          <span><strong>Tags:</strong> </span>
          {%- for t in tags -%}
-           <a href="/blog/tag/{{t}}"><span class="post-tag">{{t}}</span></a>{% if not loop.last %}, {% endif %}
+           <a href="/tags/{{t}}"><span class="tag">{{t}}</span></a>{% if not loop.last %}, {% endif %}
          {%- endfor -%}
          </div>
         {% endif %}
@@ -371,7 +465,7 @@
   paper_header_template = '''
     <div id="paper-header">
       <h1 id="paper-title">{{title}}</h1>
-      <div><strong>Published:</strong> <time id="paper-date" datetime="{{date}}">{{date}}</time> in <strong><span id="paper-conference"><a href="{{conference_url}}">{{conference}}</a></strong></div>
+      <div><strong>Published:</strong> <time id="paper-date" datetime="{{date}}">{{date}}</time> in <strong><span id="paper-conference"><a href="{{conference_url}}">{{conference}}</a></strong> (<span class="paper-type">{{paper_type}}</span>)</div>
       <div><strong>Pages:</strong> <span id="paper-pages">{{pages}}</span></div>
       {% if authors %}
         <div class="authors">
@@ -389,11 +483,11 @@
          {%- endfor -%}
          </div>
         {% endif %}
-      {% if keywords %}
-        <div class="paper-keywords">
-         <span><strong>Keywords:</strong> </span>
-         {%- for keyword in keywords -%}
-           <a href="/papers/keywords/{{keyword}}"><span class="paper-keyword">{{keyword}}</span></a>{% if not loop.last %}, {% endif %}
+      {% if tags %}
+        <div class="tags">
+         <span><strong>Tags:</strong> </span>
+         {%- for tag in tags -%}
+           <a href="/tags/{{tag}}"><span class="tag">{{tag}}</span></a>{% if not loop.last %}, {% endif %}
          {%- endfor -%}
          </div>
         {% endif %}
@@ -408,11 +502,11 @@
       <h2>Embedded PDF</h2>
       <object data="/assets/{{pdf_path}}"
               type="application/pdf"  
-              style="height:90vh; width:100%; border:2px solid black"
+              style="height:90vh; width:100%; border:none"
               title="Embedded PDF Viewer" 
               class="pdf-box">
         <iframe id="google-pdf-viewer" 
-                style="width:100vw; height:90vh; border:2px solid black"
+                style="width:100vw; height:90vh; border:none"
                 class="pdf-box"></iframe>
         <script>
           const absoluteUrl = window.location.origin + "/assets/{{pdf_path}}";
