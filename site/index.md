@@ -1,6 +1,6 @@
 ## About Me
 <div id="opening_container">
-<img id="portrait" style='float: left;' src="/assets/pictures/portrait.jpg">
+<img id="portrait" style='float: left;' src="/assets/images/portrait.jpg">
 
 I'm a current part III (masters) student reading Computer Science at the [University of Cambridge](https://www.cam.ac.uk/) where I also just completed my undergrad.
 
