@@ -11,7 +11,7 @@ a bidirectional system, and show how these can be propagated through dynamic typ
 prototype implementation in the gradually typed Hazel language includes a web-based user interface, through
 which we highlight the importance of type level debugging.</paper-abstract>
   <paper-authors>Max Carroll | https://maxcarroll0.github.io, Anil Madhavapeddy | https://anil.recoil.org, Patrick Ferris | https://patrick.sirref.org</paper-authors>
-  <paper-artifacts>Artifact | PDF (download) | /assets/papers/Carroll-Decomposable_Type_Highlighting.pdf, Link | ArXiv | etc, Link | Hazel Website | https://hazel.org</paper-artifacts>
+  <paper-artifacts>Artifact | PDF (download) | /assets/papers/Carroll-Decomposable_Type_Highlighting.pdf, Link | Hazel Website | https://hazel.org</paper-artifacts>
   <paper-pdf>/assets/papers/Carroll-Decomposable_Type_Highlighting.pdf</paper-pdf>
 
 ## Notes
