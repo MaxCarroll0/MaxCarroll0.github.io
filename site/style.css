@@ -1,64 +1,63 @@
 /** Variables **/
 
-:root
-{
-    --Canvas-bg: #fff;
-    --Canvas-color: #000;
-    --Pre-bg: #efefef;
-    --Pre-color: #000;
-    --Pre-border: #aaa;
-    --Main-color: #333;
-    --Code-color: #1a8a66; /* teal */
-    --Accent1-color: #e31e24; /* red */
-    --Accent2-color: #d65906; /* orange */
-    --Selection-bg: #e31e24;
-    --Selection-color: #fff;
-    /* from KWrite */
-    --Highlight-num: #b07e00;
-    --Highlight-esc: #ff00ff;
-    --Highlight-str: #bf0303;
-    --Highlight-pps: #818100;
-    --Highlight-slc: #4c4b4b;
-    --Highlight-com: #4c4b4b;
-    --Highlight-ppc: #008200;
-    --Highlight-opt: #000000;
-    --Highlight-ipl: #0057ae;
-    --Highlight-lin: #555555;
-    --Highlight-kwa: #000000;
-    --Highlight-kwb: #0057ae;
-    --Highlight-kwc: #000000;
-    --Highlight-kwd: #010181;
+:root {
+    --Canvas-bg: #fbf1c7;      /* base00 */
+    --Canvas-color: #282828;   /* base06 – darker than before */
+    --Pre-bg: #ebdbb2;         /* base01 */
+    --Pre-color: #1d2021;      /* base07 */
+    --Pre-border: #d5c4a1;     /* base02 */
+    --Main-color: #32302f;     /* base04 */
+    --Code-color: #689d6a;     /* base0C */
+    --Accent1-color: #cc241d;  /* base08 – lighter red */
+    --Accent2-color: #b57614;  /* base13 – lighter orange */
+    --Selection-bg: #cc241d;   /* base08 */
+    --Selection-color: #fbf1c7;/* base00 */
+
+    --Highlight-num: #d79921;  /* base0A */
+    --Highlight-esc: #b16286;  /* base0E */
+    --Highlight-str: #cc241d;  /* base08 */
+    --Highlight-pps: #98971a;  /* base0B */
+    --Highlight-slc: #bdae93;  /* base03 */
+    --Highlight-com: #bdae93;  /* base03 */
+    --Highlight-ppc: #79740e;  /* base14 */
+    --Highlight-opt: #1d2021;  /* base07 */
+    --Highlight-ipl: #458588;  /* base0D */
+    --Highlight-lin: #7c6f64;  /* base04 */
+    --Highlight-kwa: #282828;  /* base06 */
+    --Highlight-kwb: #076678;  /* base16 */
+    --Highlight-kwc: #282828;  /* base06 */
+    --Highlight-kwd: #8f3f71;  /* base17 */
 }
 
-@media (prefers-color-scheme: dark)
+
+@media (prefers-color-scheme: light)
 {
-    :root
-    {
-        --Canvas-bg: #000;
-        --Canvas-color: #fff;
-        --Pre-bg: #151515;
-        --Pre-color: #fff;
-        --Pre-border: #222;
-        --Main-color: #f2f2f2;
-        --Code-color: #2adba4; /* teal */
-        --Accent1-color: #e31e24; /* red */
-        --Accent2-color: #ef7f1a; /* orange */
-        /* via @toastal */
-        --Highlight-num: #43a60d;
-        --Highlight-esc: #dfad06;
-        --Highlight-str: #f77f1d;
-        --Highlight-pps: #d60041;
-        --Highlight-slc: #a0a0a0;
-        --Highlight-com: #a0a0a0;
-        --Highlight-ppc: #94e39;
-        --Highlight-opt: #ffffff;
-        --Highlight-ipl: #4dc987;
-        --Highlight-lin: #555555;
-        --Highlight-kwa: #d60041;
-        --Highlight-kwb: #8655e7;
-        --Highlight-kwc: #ffffff;
-        --Highlight-kwd: #00a48f;
-    }
+    :root {
+    --Canvas-bg: #1c1c1c;      /* base00 */
+    --Canvas-color: #a19083;   /* base05 */
+    --Pre-bg: #382d2d;         /* base10 */
+    --Pre-color: #ddccbb;      /* base07 */
+    --Pre-border: #3d352a;     /* base01 */
+    --Main-color: #bbaa99;     /* base06 */
+    --Code-color: #b0c4de;     /* base0C */
+    --Accent1-color: #cc5533;  /* base08 */
+    --Accent2-color: #cc5533;  /* base09 */
+
+    --Highlight-num: #88aa22;  /* base14 */
+    --Highlight-esc: #deb887;  /* base0E */
+    --Highlight-str: #ffa75d;  /* base13 */
+    --Highlight-pps: #cc5533;  /* base12 */
+    --Highlight-slc: #6e5d59;  /* base03 */
+    --Highlight-com: #6e5d59;  /* base03 */
+    --Highlight-ppc: #86af80;  /* base0B */
+    --Highlight-opt: #ddccbb;  /* base07 */
+    --Highlight-ipl: #87ceeb;  /* base0A */
+    --Highlight-lin: #554444;  /* base02 */
+    --Highlight-kwa: #cc5533;  /* base12 */
+    --Highlight-kwb: #6495ed;  /* base0D */
+    --Highlight-kwc: #a19083;  /* base05 */
+    --Highlight-kwd: #00a48f;  /* (closest: base0C #b0c4de, but kept tealish intent -> base0C) */
+}
 }
 
 /** Fixups */
