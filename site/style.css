@@ -30,7 +30,7 @@
 }
 
 
-@media (prefers-color-scheme: light)
+@media (prefers-color-scheme: dark)
 {
     :root {
     --Canvas-bg: #1c1c1c;      /* base00 */
