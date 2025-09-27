@@ -1,12 +1,13 @@
 ## About Me
-(NOTE: ADD PHOTO)
+<div id="opening_container">
+<img id="portrait" style='float: left;' src="/assets/pictures/portrait.jpg">
 
 I'm a current part III (masters) student reading Computer Science at the [University of Cambridge](https://www.cam.ac.uk/) where I also just completed my undergrad.
 
 My academic interests orbit around **discrete mathematics** (algebra, category theory, logic, type theory) and **programming language design**. I'm particularly interested in type systems, and features which allow greater abstractionn; both from a theoretical standpoint, and about their implementation in interpreters and compilers. Especially with a focus on applying these ideas to actually improve programming __productivity__ and __expressivity__.
 
 Beyond that, I enjoy general programming<fn>Especially functional programming. Primarily in OCaml, but also F# and Haskell.</fn>, human-computer interaction, distributed systems, and databases.
-
+</div>
 If you’re curious, I also keep a page of my [favourite books, papers, and blogs](/books/) on these specific areas of computer science, ranging from introductory to more advanced.
 
 Recently, I've been researching improving understanding of type systems via interactive code highlighting systems,<fn>With well-defined semantic foundations.</fn> applied to an in-development research language: [Hazel](https://hazel.org).  
