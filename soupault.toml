@@ -320,6 +320,27 @@
   file = "plugins/git-timestamp.lua"
 
 ## Widgets
+# Code Highlighting
+# Runs the content of <* class="language-*"> elements through a syntax highlighter
+[widgets.highlight]
+  widget = "preprocess_element"
+  selector = 'language-ocaml'
+  command = 'pygmentize -f html -O linenos=1 -l ocaml'
+
+# Latex
+[widgets.inline-math]
+  widget = "preprocess_element"
+  selector = ".inline-math"
+  command = "node scripts/katex.js"
+  action = "replace_content"
+
+[widgets.display-math]
+  widget = "preprocess_element"
+  selector = ".display-math"
+  command = "DISPLAY=1 node scripts/katex.js"
+  action = "replace_content"
+
+
 # Takes the content of the first #page-title element or <h1> and inserts it into the <title>
 # default is used if page has no elements matching those selectors.
 [widgets.set-page-title]
