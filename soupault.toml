@@ -324,8 +324,8 @@
 # Runs the content of <* class="language-*"> elements through a syntax highlighter
 [widgets.highlight]
   widget = "preprocess_element"
-  selector = 'language-ocaml'
-  command = 'pygmentize -f html -O linenos=1 -l ocaml'
+  selector = '*[class^="language-"]'
+  command = 'pygmentize -f html -O linenos=1 -l $(echo $ATTR_CLASS | sed -e "s/language-//")'
 
 # Latex
 [widgets.inline-math]

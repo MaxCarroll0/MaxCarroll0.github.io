@@ -9,7 +9,5 @@ This is the first post. Its first paragraph is displayed on the main page as an 
 Other paragraphs could contain some interesting information. Unfortunately, they don't.
 
 Code Test:
-<language-ocaml>
-let x = 2 in
-x + 3
-</language-ocaml>
+<div class="language-ocaml">let x = 2 in
+x + 3</div>
