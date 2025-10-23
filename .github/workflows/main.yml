@@ -35,6 +35,15 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
 
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install KaTeX
+        run: |
+          npm install katex
+
       - name: Install soupault
         env:
           SOUPAULT_VERSION: 5.1.0
