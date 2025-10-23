@@ -141,6 +141,12 @@ else
   HTML.set_attribute(post_excerpt, "id", "post-excerpt")
 end
 
+post_series = HTML.select_one(page, "post-series")
+env["series"] = HTML.inner_html(post_series)
+if post_series then
+  HTML.delete(post_series)
+  end
+
 -- Now clean up the <post-metadata> container
 post_metadata_container = HTML.select_one(page, "post-metadata")
 if post_metadata_container then

@@ -2,6 +2,7 @@
   <post-title>My first post</post-title>
   <post-date>1970-01-01</post-date>
   <post-tags>test, post</post-tags>
+  <post-series>Test Series</post-series>
 </post-metadata>
 
 This is the first post. Its first paragraph is displayed on the main page as an excerpt.

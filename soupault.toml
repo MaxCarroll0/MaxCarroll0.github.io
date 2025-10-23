@@ -87,6 +87,7 @@
 [index.fields]
   # blogs
   post_title = { selector = ["#post-title", "h1"] }
+  post_series = { selector = ["#post-series"] }
   post_excerpt = { selector = ["#post-excerpt", "p"] }
   post_date = { selector = ["#post-date", "time"] }
 
@@ -109,6 +110,7 @@
   paper_pages = { selector = "#paper-pages" }
 
 
+## TODO: List only series. Drop down on each series
 [index.views.blog-index]
   # Insert generated index into an element that matches "#blog-index" selector.
   index_selector = "#blog-entries"
@@ -118,10 +120,13 @@
   include_subsections = true  
 
   # Jingoo template for rendering extracted metadata
+  # One entry for each series
   index_template = """
     {% for e in entries %}
-    <h2><a href="{{e.url}}">{{e.post_title}}</a></h2>
-    <div><strong>Last update:</strong> {{e.post_date}}</div>
+    {% if not e.post_series %}
+    {% set series = entries | map(attr('post_series')) | select(eq(e.post_title)) %}
+    <h2 id="post-title"><a href="{{e.url}}">{{e.post_title}}</a>{% if series %} ({{length(series)}} posts){% endif %}</h2>
+    <div><strong>Last update:</strong> {% if series %}{{(entries | find(compose(eq(e.post_title), attr('post_series')))).post_date}}{% else %}{{e.post_date}}{% endif %}</div>
     {% if e.tags %}
     <div class="post-tags">
        <strong>Tags: </strong>
@@ -130,9 +135,10 @@
        {%- endfor -%}
     </div>
     {% endif %}
-    <div><strong>Reading time:</strong> {{e.post_reading_time}}</div>
+    {% if not series %}<div><strong>Reading time:</strong> {{e.post_reading_time}}</div>{% endif %}
     <p>{{e.post_excerpt}}</p>
     <a href="{{e.url}}">Read more</a>
+    {% endif %}
     {% endfor %}
   """
 
@@ -155,7 +161,7 @@
     <dl>
       {% for e in sublist(0, limit, entries) %}
       <dt>{{e.date}}</dt>
-      <dd> <a href="{{e.url}}">{{e.post_title}}</a> <i>(Reading time: {{e.post_reading_time}})</i></dd>
+      <dd> <a href="{{e.url}}">{{e.post_title}}</a>{% if e.post_series %} - <a href="blog/{{e.post_series}}/">{{e.post_series}}</a>{% endif %} <i>(Reading time: {{e.post_reading_time}})</i></dd>
       {% endfor %}
       </ul>
     </dl>
@@ -501,7 +507,7 @@
 
   post_header_template = '''
     <div id="post-header">
-      <h1 id="post-title">{{title}}</h1>
+      <h1><span id="post-title">{{title}}</span>{% if series %}{% if series != title %} - <a href="/{{series}}" id="post-series">{{series}}</a>{% endif %}{% endif %}</h1>
       <div><strong>Last update:</strong> <time id="post-date" datetime="{{date}}">{{date}}</time></div>
       {% if tags %}
         <div class="tags">
