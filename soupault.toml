@@ -155,6 +155,9 @@
   section = "blog"
   include_subsections = true
 
+  sort_by = "post_date"
+  sort_descending = true
+
   # In this case index_template is a soupault built-in
   index_template = """
     {% set limit = int(soupault_config.custom_options.blog_summary_max_entries) %}
