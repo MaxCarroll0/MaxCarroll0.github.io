@@ -7,7 +7,7 @@
 
 Off to a good start by getting ill on the first day of ICFP/SPLASH... Watched the first few talks online, but was able to make it in for the afternoon OxCaml talks.
 
-## [HOPE](https://conf.researchr.org/home/icfp-splash-2025/hope-2025) [Smart Handlers: Handling the Selection Monad](https://conf.researchr.org/details/icfp-splash-2025/hope-2025-papers/7/Smart-Handlers-Handling-the-selection-monad)
+## [HOPE](https://conf.researchr.org/home/icfp-splash-2025/hope-2025): [Smart Handlers: Handling the Selection Monad](https://conf.researchr.org/details/icfp-splash-2025/hope-2025-papers/7/Smart-Handlers-Handling-the-selection-monad)
 There's been a flurry of effect handler related reseaech in the last few years, and here we have some more at the [HOPE](https://conf.researchr.org/home/icfp-splash-2025/hope-2025) _(Higher-Order Programming with Effects)_ workshop to start off the first day. 
 
 This was a well-presented talk on creating a new type of effect handler that additionally has a notion of 'cost', calculated via a continuation logging a real number cost<fn>I would guess also likely to extend to all monoids admitting a total order. A monoid is required to accumulate costs, and some form of order is useful for applications to optimisation problems.</fn> alongside computation. So, we now get two continuations in the effect handler, as usual one for the remaining computation, but a second for leveraging the _future_ cost. Then, in the code, cost is defined by a primitive function and may be placed after the optimisation operations; all future costs are summed together (like in the Writer monad).
@@ -74,7 +74,7 @@ From what I'm seeing this would absolutely be a brilliant tool for use in AI, Ma
 They derive a sound operational semantics for this, for which a key part involves use of the selection monad to reason about loss continuations. But, usage of the features doesn't need this so I will just show a few examples below of solving optimisation problems using this features, while abstracting away the details of the numerical methods. The full paper is available [here](https://doi.org/10.1145/3729321) for those curious.
 
 
-## [HOPE](https://conf.researchr.org/home/icfp-splash-2025/hope-2025) [Finite functional programming via graded effects and relevance types](https://conf.researchr.org/details/icfp-splash-2025/hope-2025-papers/3/Finite-functional-programming-via-graded-effects-and-relevance-types):
+## [HOPE](https://conf.researchr.org/home/icfp-splash-2025/hope-2025): [Finite functional programming via graded effects and relevance types](https://conf.researchr.org/details/icfp-splash-2025/hope-2025-papers/3/Finite-functional-programming-via-graded-effects-and-relevance-types):
 
 This was supposedly an unrehearsed talk using handwritten slides, but was still very easy to follow, and probably the most enjoyable talk of the day. 
 A type system for a _finite_ relational functional language for databases is defined, with the idea being that unlike with functions, we can be sure that queries on finite functions are terminating and fast.
@@ -89,21 +89,17 @@ Now whats super interesting is how to type check to ensure pointed functions and
 
 Overall, lots of interesting ideas, but much more work to be done to prove the results and actually have ways to easily construct finitely supported maps. I'm definitely interested in exploring some of these ideas myself.
 
-TODO: Clean up from here & upload rest of blog
-## Erlang Unions
-I haven't really worked with unions, so watching this short lightning talk showed some very interesting examples and difficulties in it's type checking and inference. Didn't realise how unusual untagged unions are. Here is one example presented:
+## [Erlang](https://conf.researchr.org/home/icfp-splash-2025/erlang-2025): [Type Inference for Erlang Unions and Funs: eqWAlizer's Approach](https://conf.researchr.org/details/icfp-splash-2025/erlang-2025-papers/7/The-State-of-The-Unions-challenges-for-type-checking-unions-and-generics-at-WhatsApp)
+I haven't really worked with unions, so watching this short (15m) lightning talk showed some very interesting examples and difficulties in it's type checking and inference. Didn't realise how unusual untagged unions are and how subjective a lot of the choices made in type checking are. Definitely something I want to explore more.
 
- Definitely something I want to explore more.
+## OxCaml [A guided tour through Oxidized OCaml](https://conf.researchr.org/details/icfp-splash-2025/icfp-splash-2025-tutorials/5/A-guided-tour-through-Oxidized-OCaml)
+Here we have more of a [tutorial](https://github.com/oxcaml/tutorial-icfp25) on using the new OCaml system from [Jane Street](https://www.janestreet.com/). [Oxidised OCaml](https://oxcaml.org/) adds 'modes' to OCaml, a new form of annotation generality orthogonal to types, allowing reasoning about memory locality and data races. I guess the name comes from the fact that it aims to allow more precuse memory management and safety like in [Rust](https://rust-lang.org/), and rust forms from oxidisation? Hope I'm remembering my GCSE Chemistry right... Also love that we now have a party of two animals (an Ox and a Camel) in the name; very creative.
 
-## OxCaml
-Here we have more of a [tutorial]() on using the new OCaml system from [Jane Street](). [Oxidised OCaml]() adds 'modes' to OCaml, a new form of annotation generality orthogonal to types, allowing reasoning about memory locality and data races. I guess the name comes from the fact that it aims to allow more precuse memory management and safety like in [Rust](), and rust forms from oxidisation? Hope I'm remembering my GCSE Chemistry right... Also love that we now have a party of two animals (an Ox and a Camel) in the name; very creative.
+I managed to make it in in person by lunch for this, and it was worth it. The tutorial was co-presented very well by my supervisor [Anil](https://anil.recoil.org/about) and [Gavin](https://gavinleroy.com/) and encouraged interacting and discussing with the other attendees. Though, it was a bit quirky how he made us humm loudly to vote on questions, instead of just raising hands??
 
-I managed to make it in by lunch for this, and it was worth it. The tutorial was co-presented very well by my supervisor [Anil]() and [Gavin]() and encouraged interacting and discussing with the other attendees. Though, it was a bit quirky how he made us humm loudly to vote on questions, instead of just raising hands??
+Actually demonstrating the benefits of this tool requires pretty solid knowledge of how the OCaml memory model works but they showed some great diagrams to get the points across even to those who haven't used OCaml much.
 
-Actually demonstrating the benefits of this tool requires pretty solid knowledge of how the OCaml memory model works. They showed some great diagrams to get the points across even to those who haven't used OCaml much.
-
-Sadly, this overlapped with [Patrick's]() (my other supervisor) talk about a [transpiler from OCaml -> Hazel]() which he created for me to amass a corpus of programs to use in evaluating my [dissertation](). I'm going to need to watch the recording for this; I still don't know how it works!!
+Sadly, this overlapped with [Patrick's](https://patrick.sirref.org/index/index.xml) (my other supervisor) talk about a [transpiler from OCaml -> Hazel](https://conf.researchr.org/details/icfp-splash-2025/tyde-2025-papers/8/Generating-a-corpus-of-Hazel-programs-from-ill-typed-OCaml-programs-Extended-Abstrac) which he created for me to amass a corpus of programs to use in evaluating my [dissertation](site/papers/dissertation). I'm going to need to watch the recording for this if it's available; I still don't know how it works!!
 
 ## Thoughts
-There were so many talks I had interest in thus day. While it was not the best having to watch half the day online, but I'm happy I made it in after lunch for OxCaml.
-
+There were so many talks I had interest in today. Wasn't the best having to watch half the day online, but I'm happy I made it in after lunch for OxCaml.
