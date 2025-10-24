@@ -75,7 +75,7 @@ function build_tag_page(entries, tag)
   env["entries"] = matching_entries
   posts = String.render_template(template, env)
   return posts
-end
+  end
 
 pages = {}
 

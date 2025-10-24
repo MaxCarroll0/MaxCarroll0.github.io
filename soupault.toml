@@ -76,7 +76,7 @@
 
   sort_descending = true
 
-  extract_after_widgets = ['insert-reading-time', 'make-post-header', 'make-paper-header']
+  extract_after_widgets = ['insert-reading-time', 'make-post-header', 'make-paper-header', 'insert-series-nav-bar']
 
   sort_by = "date"
 
@@ -160,12 +160,133 @@
     {% set limit = int(soupault_config.custom_options.blog_summary_max_entries) %}
     <dl>
       {% for e in sublist(0, limit, entries) %}
-      <dt>{{e.date}}</dt>
+      <dt>{{e.post_date}}</dt>
       <dd> <a href="{{e.url}}">{{e.post_title}}</a>{% if e.post_series %} - <a href="blog/{{e.post_series}}/">{{e.post_series}}</a>{% endif %} <i>(Reading time: {{e.post_reading_time}})</i></dd>
       {% endfor %}
       </ul>
     </dl>
   """
+
+[index.views.series]
+  index_selector = "#sidebar-right"
+  index_selector_override = "#series"
+
+  section = "blog"
+  include_subsections = true
+
+  # In this case index_template is a soupault built-in
+  index_template = """
+    <dl>
+      {% %}
+      {% for e in entries %}
+      <dt>{{e.post_date}}</dt>
+      <dd> <a href="{{e.url}}">{{e.post_title}}</a> <i>(Reading time: {{e.post_reading_time}})</i></dd>
+      {% endfor %}
+      </ul>
+    </dl>
+  """
+
+  lua_source = '''
+    series = HTML.select_one(page, "#post-series")
+    if series == null then
+      series = HTML.select_one(page, "#post-title")
+    end
+
+    local filtered = {}
+    local n = 1
+    local i = 1
+    while site_index[i] do
+      local post = site_index[i]
+      if post["post_series"] == HTML.inner_html(series) then
+        filtered[n] = post
+        n = n + 1
+      end
+      i = i + 1
+    end
+
+    env = {}
+    env["entries"] = filtered
+    rendered_entries = HTML.parse(String.render_template(config["index_template"], env))
+    container = HTML.select_one(page, config["index_selector_override"])
+
+    if container == null then
+      container = HTML.select_one(page, config["index_selector"])
+    end
+    HTML.append_child(container, rendered_entries)
+  '''
+
+[index.views.series-nav-bar]
+  index_selector = "nav#series-nav-bar"
+
+  section = "blog"
+  include_subsections = true
+
+  # In this case index_template is a soupault built-in
+  index_template = """
+  {% if series_prev or series_next %}
+  <div style="display:flex; justify-content:space-between; align-items:center;" class="nav-links">
+    <div class="nav-prev">
+      {% if series_prev %}
+        <a href="{{ series_prev_url }}" class="nav-link">← {{ series_prev }}</a>
+      {% else %}
+        <span class="nav-link disabled">← No previous post</span>
+      {% endif %}
+    </div>
+    <div class="nav-series-name">
+      <a href="{{ series }}" class="nav-link series-link">{{ series }}</a>
+    </div>
+    <div class="nav-next">
+      {% if series_next %}
+        <a href="{{ series_next_url }}" class="nav-link">{{ series_next }} →</a>
+      {% else %}
+        <span class="nav-link disabled">No next post →</span>
+      {% endif %}
+    </div>
+  </div>
+  {% endif %}
+  """
+
+  lua_source = '''
+    series = HTML.inner_html(HTML.select_one(page, "#post-series"))
+    title = HTML.inner_html(HTML.select_one(page, "#post-title"))
+
+    local filtered = {}
+    local n = 1
+    local i = 1
+    while site_index[i] do
+      local post = site_index[i]
+      if post["post_series"] == series then
+        filtered[n] = post
+        n = n + 1
+      end
+      i = i + 1
+    end
+
+    i = 1
+    while filtered[i] do
+      if filtered[i]["post_title"] == title then
+        series_prev = filtered[i + 1]
+        series_next = filtered[i - 1]
+      end
+      i = i + 1
+    end
+
+    env = {}
+    env["series"] = series
+    if series_prev then
+      env["series_prev"] = series_prev["post_title"]
+      env["series_prev_url"] = series_prev["url"]
+    end if series_next then
+      env["series_next"] = series_next["post_title"]
+      env["series_next_url"] = series_next["url"]
+    end
+
+    rendered_entries = HTML.parse(String.render_template(config["index_template"], env))
+    container = HTML.select_one(page, config["index_selector"])
+    HTML.append_child(container, rendered_entries)
+  '''
+
+
 
 # This view displays the first ten entries on the main page
 [index.views.papers-summary]
@@ -179,7 +300,7 @@
     {% set limit = int(soupault_config.custom_options.papers_summary_max_entries) %}
     <dl>
       {% for e in sublist(0, limit, entries) %}
-      <dt>{{e.date}}</dt>
+      <dt>{{e.paper_date}}</dt>
       <dd> <a href="{{e.url}}">{{e.paper_title}}</a> <i>[{{e.paper_conference}}]</i> </dd>
       {% endfor %}
       </ul>
@@ -507,7 +628,7 @@
 
   post_header_template = '''
     <div id="post-header">
-      <h1><span id="post-title">{{title}}</span>{% if series %}{% if series != title %} - <a href="/{{series}}" id="post-series">{{series}}</a>{% endif %}{% endif %}</h1>
+      <h1><span id="post-title">{{title}}</span>{% if series %}{% if series != title %} - <a href="/blog/{{series}}" id="post-series">{{series}}</a>{% endif %}{% endif %}</h1>
       <div><strong>Last update:</strong> <time id="post-date" datetime="{{date}}">{{date}}</time></div>
       {% if tags %}
         <div class="tags">
@@ -519,6 +640,20 @@
         {% endif %}
     </div>
 '''
+
+[widgets.insert-series-nav-bar]
+  widget = "insert_html"
+
+  after = "make-post-header"
+
+  section = "blog/"
+
+  exclude_path_regex = "(.*)/index(.*)"
+
+  action = "append_child"
+  selector = "main"
+
+  html = '<nav id="series-nav-bar"></nav>'
 
 [widgets.make-paper-header]
   widget = "paper-header"
@@ -617,6 +752,7 @@
   # there will be nowhere to insert the reading time.
   # This is why we explicitly schedule it to run after that widget.
   after = "insert-reading-time-container"
+  reading_speed = 180
 
   selector = "#post-reading-time"
 

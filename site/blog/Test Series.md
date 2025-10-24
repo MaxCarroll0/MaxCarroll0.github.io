@@ -5,3 +5,6 @@
 </post-metadata>
 
 This is a post for the test series!!
+
+Series:
+<div id="series"></div>
