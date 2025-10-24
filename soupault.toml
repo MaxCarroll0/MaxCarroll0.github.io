@@ -236,7 +236,7 @@
       {% endif %}
     </div>
     <div class="nav-series-name">
-      <a href="{{ series }}" class="nav-link series-link">{{ series }}</a>
+      <a href="/blog/{{series}}" class="nav-link series-link">{{ series }}</a>
     </div>
     <div class="nav-next">
       {% if series_next %}
