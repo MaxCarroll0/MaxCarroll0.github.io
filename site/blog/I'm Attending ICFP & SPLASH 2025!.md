@@ -1,5 +1,5 @@
 <post-metadata>
-  <post-title>I'm Attending ICFP SPLASH 2025!</post-title>
+  <post-title>I'm Attending ICFP & SPLASH 2025!</post-title>
   <post-date>1970-01-01</post-date>
   <post-tags>ICFP, SPLASH, HATRA, Conference, Programming Languages</post-tags>
 </post-metadata>
