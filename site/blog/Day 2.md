@@ -21,7 +21,7 @@ This can all be done with normal lenses, so why do we need effects? Well, compil
 & & & \quad\vdots\\ 
 & & & \textit{(edits)}\\ 
 & & & \quad \vdots\\ 
-&\lambda x.\ lambda y.\ y + x\quad &\Leftarrow^{\texttt{set n}}\quad \lambda_{\color{red}\mathbb{0}}.\ \lambda_{\color{royalblue} \mathbb{1}}.\ & {\color{royalblue}\mathbb{1}} + {\color{red}\mathbb{0}} \end{align*}</div>
+&\lambda x.\lambda y.\ y + x\quad &\Leftarrow^{\texttt{set n}}\quad \lambda_{\color{red}\mathbb{0}}.\ \lambda_{\color{royalblue} \mathbb{1}}.\ & {\color{royalblue}\mathbb{1}} + {\color{red}\mathbb{0}} \end{align*}</div>
 
 The way they formalise this is by allowing the user to define a 'round-trip relation' to define exactly how the equivalences (view-set and set-view laws) should behave in the presence of effects, which is then verified by its encoding in the type system. We obviously want the round-trip relation to ensure that we recover the names of all variables from the original program, but there is then a problem for edits which add an additional lambda expression, where we need to 'generate a new variable name'. Basically, the round-trip relation must make sure the name-index association is kept even after edits, and that new variables are named in a consistent manner (intuitively, so that we can 'replay' these edits in the named version to check equivalence). Three examples of naming new variables are given in the paper:
 - Stateless: Deterministically picks a new name which does not already occur in scope. The same names would be generated in different scopes.
