@@ -2,7 +2,7 @@
   <post-title>Day 1</post-title>
   <post-series>I'm Attending ICFP & SPLASH 2025!</post-series>
   <post-date>2025-10-12</post-date>
-  <post-tags>OxCaml, Effect Handlers, Substructural Type Systems, Relevant Type Systems, Erland, Conference, HOPE, TyDe Programming Languages</post-tags>
+  <post-tags>OxCaml, Effect Handlers, Substructural Type Systems, Relevant Type Systems, Erlang, Conference, HOPE, TyDe, Programming Languages</post-tags>
 </post-metadata>
 
 Off to a good start by getting ill on the first day of ICFP/SPLASH... Watched the first few talks online, but was able to make it in for the afternoon OxCaml talks.
