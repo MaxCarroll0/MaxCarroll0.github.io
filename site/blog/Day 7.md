@@ -1,7 +1,7 @@
 <post-metadata>
-  <post-title>Day 3</post-title>
+  <post-title>Day 7</post-title>
   <post-series>I'm Attending ICFP & SPLASH 2025!</post-series>
-  <post-date>2025-10-16</post-date>
+  <post-date>2025-10-18</post-date>
   <post-tags> OCaml, Haskell, Conference, Programming Languages</post-tags>
 </post-metadata>
 
