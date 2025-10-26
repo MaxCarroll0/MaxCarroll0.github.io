@@ -1,8 +1,8 @@
 <post-metadata>
-  <post-title>Day 2</post-title>
+  <post-title>Day 3</post-title>
   <post-series>I'm Attending ICFP & SPLASH 2025!</post-series>
-  <post-date>2025-10-13</post-date>
-  <post-tags> Lenses, de Bruijn Indices, Codata, Copatterns, Conference, ICFP, Programming Languages</post-tags>
+  <post-date>2025-10-14</post-date>
+  <post-tags> Conference, ICFP, Programming Languages</post-tags>
 </post-metadata>
 
 We now move over to Marina Bay Sands Conference Centre the for ICFP to start. Really fancy building with some amazing views. I'm looking forward to a few ICFP papers and also the 2nd [PROPL](https://propl.dev/) organised by Anil!
@@ -40,7 +40,8 @@ See the lazy list definition below with two normal (non-lazy) constructors for c
 type 'a stream =
   | Cons of 'a * 'a stream
   | Nil
-and lazy Append of 'a stream * 'a stream = fun
+  
+  lazy Append of 'a stream * 'a stream = fun
     | (Cons (x, xs), _) -> Cons (x, Append (xs, s2))
     | (Nil, _) -> s2
 </div>
