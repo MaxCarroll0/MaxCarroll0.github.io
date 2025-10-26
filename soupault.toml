@@ -650,7 +650,7 @@
 [widgets.insert-series-nav-bar]
   widget = "insert_html"
 
-  after = "make-post-header"
+  after = ["make-post-header", "footnotes"]
 
   section = "blog/"
 
