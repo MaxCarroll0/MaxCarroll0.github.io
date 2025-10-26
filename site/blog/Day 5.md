@@ -2,7 +2,7 @@
   <post-title>Day 5</post-title>
   <post-series>I'm Attending ICFP & SPLASH 2025!</post-series>
   <post-date>2025-10-16</post-date>
-  <post-tags> Bidirectional Type Systems, Hazel, Module Systems, Pattern Matching, Conference, OOPSLA, ML Family, Programming Languages</post-tags>
+  <post-tags>Bidirectional Type Systems, Hazel, Module Systems, Pattern Matching, Conference, OOPSLA, ML Family, Programming Languages</post-tags>
 </post-metadata>
 
 Had a rest yesterday to see a bit of Singapore since there weren't many talks I wanted to go to. I find the [OOPSLA](https://2025.splashcon.org/track/OOPSLA?) lightning talks a bit chaotic to understand them easily in only 15m. But today we have two talks on [bidirectional typing](https://doi.org/10.1145/3450952) in a row, plus a talk on modules and one on pattern matching in the [ML Family Workshop](https://conf.researchr.org/home/icfp-splash-2025/mlsymposium-2025). These are probably my favourite areas of Programming language design at the moment!
