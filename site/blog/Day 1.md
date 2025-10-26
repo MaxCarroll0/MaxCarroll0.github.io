@@ -25,7 +25,7 @@ let linear_reg (w, b) x target =
 For the handler we add a loss continuation <code>loss</code> to pseudo-OCaml alongside the normal continuation <code>k</code>. Then the code can use (possibly multiple times) the loss continuation to calculate losses based on various different choices of new parameters. For example, the below code performs auto-differentiation on the loss function with respect to the original parameters <code>(w, b)</code>.<fn>This will call the loss function only once, but other methods like numerical differentiation might use this multiple times with (ideally) converging parameters.</fn>. Finally, we nudge the parameters in the opposite direction of the gradients (gradient descent) with a scaling (learning rate) of <code>0.01</code>.
 <div class="language-ocaml">
 effect Optimize : float * float -> float * float
-
+‎
 let h_opt f =
   try f () with
   | effect (Optimize (w, b)) loss k ->
@@ -50,7 +50,7 @@ Of particular note is how operations and loss continuations can be combined to v
 <div class="language-ocaml">
 effect LR : () -> float (* Get learning rate *)
 effect Optimize : float * float -> float * float (* Get next parameters *)
-
+‎
 (* Handler to perform optimisation *)
 let h_opt f =
   try f () with
@@ -59,7 +59,7 @@ let h_opt f =
     let learning_rate = perform LR () in
     let updated = (w -. 0.01 *. wd, b -. 0.01 *. wb) in
     continue k updated
-
+‎
 (* Handler to choose learning rate *)
 let h_lr f =
   try f () with
