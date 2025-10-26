@@ -41,8 +41,8 @@ type 'a stream =
   | Cons of 'a * 'a stream
   | Nil
 and lazy Append of 'a stream * 'a stream = fun
-    | (Cons (x, xs), _) -> Cons (x, Append (xs, s2))
-    | (Nil, _) -> s2
+  | (Cons (x, xs), _) -> Cons (x, Append (xs, s2))
+  | (Nil, _) -> s2
 </div>
 Then, when writing a function on streams, we are only allowed to match upon the strict constructors, and any lazy constructors are evaluated with their corresponding function before being matched upon.
 
@@ -88,10 +88,9 @@ See below the library code and user code, and how the library print function wou
 type 'a stream =
   | ( :: ) of 'a * 'a stream
   | [] of 'a stream
-  
-  lazy Append of 'a stream * 'a stream = fun
-    | (x :: xs, s2) -> x :: Append (xs, s2)
-    | ([], s2) -> s2
+and lazy Append of 'a stream * 'a stream = fun
+  | (x :: xs, s2) -> x :: Append (xs, s2)
+  | ([], s2) -> s2
 
 let rec preview elem_to_string s = lazy match s with
   | [] -> "Empty stream"
