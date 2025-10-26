@@ -91,21 +91,21 @@ type 'a stream =
 and lazy Append of 'a stream * 'a stream = fun
   | (x :: xs, s2) -> x :: Append (xs, s2)
   | ([], s2) -> s2
-\n
+ 
 let rec preview elem_to_string s = lazy match s with
   | [] -> "Empty stream"
   | x :: xs -> "Stream starting with " ^ elem_to_string x
   | Append(s1, s2) -> to_string s1 ^ " Appended to " ^ to_string s2
   (* Default case below: syntax sugar could omit *)
   | _ -> match s with s -> preview elem_to_string s
-\n
+ 
 (* Client Code *)
 open Stream
-\n
+ 
 lazy Interleave of 'a stream * 'a stream = fun
   | (x :: xs, s2) -> x :: Interleave (s2, xs)
   | ([], s2) -> s2
-\n
+ 
 (* Stream.to_string has no Interleave case *)
 Interleave (1 :: 3 :: [], 2 :: 4 :: []) |> Stream.preview (Int.to_string) |> println
 (* Prints: "Stream starting with 1" *)
