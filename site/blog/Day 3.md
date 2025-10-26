@@ -2,7 +2,7 @@
   <post-title>Day 3</post-title>
   <post-series>I'm Attending ICFP & SPLASH 2025!</post-series>
   <post-date>2025-10-14</post-date>
-  <post-tags> Type Slicing, Refinement Types, Syntax, Debugging, Docker, OCaml, Music, Talk, Conference, ICFP, HATRA, Programming Languages</post-tags>
+  <post-tags> Type Slicing, Refinement Types, Syntax, Debugging, Docker, OCaml, Music, Hazel, Talk, Conference, ICFP, HATRA, Programming Languages</post-tags>
 </post-metadata>
 
 Today was the day of my talk, luckily it was quite early so I can get it over and done with. I had two great talks preceding mine to contend with which was a bit intimidating.

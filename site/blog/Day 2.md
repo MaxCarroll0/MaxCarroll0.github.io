@@ -5,7 +5,7 @@
   <post-tags> Lenses, de Bruijn Indices, Codata, Copatterns, Conference, ICFP, Programming Languages</post-tags>
 </post-metadata>
 
-We now move over to Marina Bay Sands Conference Centre the for ICFP to start. Really fancy building with some amazing views. I'm looking forward to a few ICFP papers and also the 2nd [PROPL](https://propl.dev/) organised by Anil!
+We now move over to Marina Bay Sands Conference Centre the for ICFP to start, a really fancy building with some amazing views. I went to a few very good ICFP papers and also tagged along to the 2nd [PROPL](https://propl.dev/) organised by Anil! (Which was great when the remote talks actually worked...)
 
 ## [ICFP](https://icfp25.sigplan.org/): [Effectful Lenses](https://icfp25.sigplan.org/details/icfp-2025-papers/19/Effectful-Lenses-There-and-Back-with-Different-Monads)
 I wasn't hugely familiar with lenses but it's something I've been wanting to look at. This was a very practical talk used a great running example which solves a problem I've thought about quite extensively before. The example was a _de Bruijn index_ converter, i.e. a system that converts between a named lambda representation and a nameless de Bruijn index representation, but also allows for edits (effects) in the named or nameless terms interleaved between convertions to and fro! 
