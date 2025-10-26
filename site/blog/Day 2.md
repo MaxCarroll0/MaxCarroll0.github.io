@@ -17,7 +17,7 @@ Then converting between these can be represented by a 'lens', which has two oper
 - <code>set (view n) n = n</code> - viewing a named term (<code>n</code>) as its nameless representation and then converting it back to a named representation with respect to the original term (i.e. using the original term as a template to retrieve the names) should return the original named term (<code>n</code>).
 
 This can all be done with normal lenses, so why do we need effects? Well, compilers and the such would modify the unnamed representation during optimisation, but we may want to return back to a named representation to show the programmer, how can we represent this? We can consider various edits on the nameless (or named) terms to be _effects_. Then, we want the view-set and set-view properties to hold 'up to these effects' that is, we want to recover a named term (resp. nameless term) which would be produced by performing the _same edits_ to the original named (resp. nameless) program. i.e. see how the variable names are recovered even after edits below:
-<div class="display-math">\begin{align*} n = &\lambda x.\lambda y.\ x + y\quad &\Rightarrow^{\texttt{view}}\quad \lambda_{\color{green}\mathbb{0}}.\ \lambda_{\color{royalblue} \mathbb{1}}.\ & \mathbb{0} + \mathbb{1}\\ 
+<div class="display-math">\begin{align*} n = &\lambda x.\lambda y.\ x + y\quad &\Rightarrow^{\texttt{view}}\quad \lambda_{\color{green}\mathbb{0}}.\ \lambda_{\color{royalblue} \mathbb{1}}.\ & {\color{green}\mathbb{0}} + {\color{royalblue}\mathbb{1}}\\ 
 & & & \quad\vdots\\ 
 & & & \textit{(edits)}\\ 
 & & & \quad \vdots\\ 
