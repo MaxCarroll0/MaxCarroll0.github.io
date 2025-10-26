@@ -63,7 +63,7 @@ if manual_timestamp_selector then
 end
 
 if not timestamp then
-  git_command = format("git log -n 1 --pretty=format:%%ad --date=%s -- %s", git_date_format, page_file)
+  git_command = format("git log -n 1 --pretty=format:%%ad --date=%s --'%s'", git_date_format, page_file)
   timestamp = Sys.get_program_output(git_command)
 end
 
