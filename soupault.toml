@@ -126,7 +126,7 @@
     {% if not e.post_series %}
     {% set series = entries | map(attr('post_series')) | select(eq(e.post_title)) %}
     <h2 id="post-title"><a href="{{e.url}}">{{e.post_title}}</a>{% if series %} ({{length(series)}} posts){% endif %}</h2>
-    <div><strong>Last update:</strong> {% if series %}{{(entries | find(compose(eq(e.post_title), attr('post_series')))).post_date}}{% else %}{{e.post_date}}{% endif %}</div>
+    <div><strong>Date posted:</strong> {% if series %}{{(entries | find(compose(eq(e.post_title), attr('post_series')))).post_date}}{% else %}{{e.post_date}}{% endif %}</div>
     {% if e.tags %}
     <div class="post-tags">
        <strong>Tags: </strong>
@@ -635,7 +635,7 @@
   post_header_template = '''
     <div id="post-header">
       <h1><span id="post-title">{{title}}</span>{% if series %}{% if series != title %} - <a href="/blog/{{series}}" id="post-series">{{series}}</a>{% endif %}{% endif %}</h1>
-      <div><strong>Last update:</strong> <time id="post-date" datetime="{{date}}">{{date}}</time></div>
+      <div><strong>Date posted:</strong> <time id="post-date" datetime="{{date}}">{{date}}</time></div>
       {% if tags %}
         <div class="tags">
          <span><strong>Tags:</strong> </span>
