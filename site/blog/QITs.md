@@ -87,14 +87,14 @@ f (Swap (x,y)) = ?commutativity : f (x, y) = f (y, x)
 
 Now we get onto examples from some papers. In the motivation for Epigram (McKinna 2006) a merge sort is formalised. Their final sorting function has the following type:<fn>In Idris-like syntax.</fn>
 
-<pre class="language-idris">
+<div class="language-idris">
 data OList Nat where
   [] : OList 0
   (::) : (x : Nat) -> {y : Nat} -> {auto lt : x <= y} 
          -> OList y -> OList x
-
+ 
 sort : List Nat -> OList 0
-</pre>
+</div>
 
 Where `OList` is a locally sorted list with an (open) lower bound on all its elements. The locally-sorted property is ensured by the requirement that to cons a list we must provide a proof `lt : x <= y`. However, this of course does not require the resulting list to have the same elements as before, just that it is sorted.<fn>Which they mention in the paper of course.</fn> We could just always return the empty list!
 
@@ -116,7 +116,7 @@ data Multiset : Type -> Type where
             (like in polymorphic variants) -}
   Commute : (xs : Multiset a) -> (ys : Multiset a) 
             -> xs ++ ys = ys ++ xs
-
+ 
 sort : (xs : Multiset Nat) -> (ys : OList 0 ** xs = ys)
 </div>
 
