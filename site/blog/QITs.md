@@ -24,7 +24,7 @@ As quotients can be thought of as "adding structure" to free inductive types, it
 
 We can represent fractions by a pair of an integer numerator and positive denominator. Then rationals can be the quotient of fractions equating all representations of the same rational:
 
-<div class="language-agda">
+<div class="language-idrs">
 data Rat : Type where
   _/_ : Int -> Pos -> Rat
   Eq : (n/m : Rat) -> (n'/m' : Rat) -> (n * m' = n' * m) 
@@ -33,7 +33,7 @@ data Rat : Type where
 
 Then to define a function \(f\) on this type we define it at the points as usual *and* the paths (equalities): \(ap_f\ (p : a = b) : f(p) = f(q)\). I have made up a notation where you pattern match each path constructor and overload function name `f`:
 
-<div class="language-agda">
+<div class="language-idris">
 f : (p : x = y) -> f x = f y
 f (PathConstr1(?fields) : x = y) = ?prove : f x = f y
 f (PathConstr2(?fields) : x = y) = ?prove : f x = f y
@@ -51,7 +51,7 @@ For example, negation:<fn>You can really see the functorial/categorical foundati
 -(Eq q q' p) = Eq (-q -q' (L >> -p >> flip L))
 </div>
 
-Here `>>` represents path composition and `flip` path inversion. I.e. for <span class="inline-math">p : a = b</span> and <span class="inline-math">q : b = c</span> then <span class="inline-math">p \texttt{>>} q : a = c</span> and <span class="inline-math">flip p : b = a</span>. Applying a function <span class="inline-math">f : A \to B</span> to a path <span class="inline-math">p : a =_A a'</span> gives <span class="inline-math">f(p) : f(a) =_B f(a')</span>; in the above case <span class="inline-math">-p : -(n*m') = -(n'*m)</span>.
+Here `>>` represents path composition and `flip` path inversion. I.e. for <span class="inline-math">p : a = b</span> and <span class="inline-math">q : b = c</span> then <span class="inline-math">p \texttt{>>} q : a = c</span> and <span class="inline-math">flip\ p : b = a</span>. Applying a function <span class="inline-math">f : A \to B</span> to a path <span class="inline-math">p : a =_A a'</span> gives <span class="inline-math">f(p) : f(a) =_B f(a')</span>; in the above case <span class="inline-math">-p : -(n*m') = -(n'*m)</span>.
 
 The ideas extend to multiple-argument functions:
 
@@ -94,7 +94,7 @@ data OList Nat where
          -> OList y -> OList x
 ‎
 ‎
-    ‎ 
+  
 sort : List Nat -> OList 0
 </div>
 
