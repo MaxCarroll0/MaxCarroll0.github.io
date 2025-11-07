@@ -92,7 +92,9 @@ data OList Nat where
   [] : OList 0
   (::) : (x : Nat) -> {y : Nat} -> {auto lt : x <= y} 
          -> OList y -> OList x
- 
+‎
+‎
+    ‎ 
 sort : List Nat -> OList 0
 </div>
 
@@ -116,7 +118,7 @@ data Multiset : Type -> Type where
             (like in polymorphic variants) -}
   Commute : (xs : Multiset a) -> (ys : Multiset a) 
             -> xs ++ ys = ys ++ xs
- 
+ ‎ ‎ 
 sort : (xs : Multiset Nat) -> (ys : OList 0 ** xs = ys)
 </div>
 
