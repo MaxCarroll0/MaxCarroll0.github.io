@@ -24,7 +24,7 @@ As quotients can be thought of as "adding structure" to free inductive types, it
 
 We can represent fractions by a pair of an integer numerator and positive denominator. Then rationals can be the quotient of fractions equating all representations of the same rational:
 
-<div class="language-idris">
+<div class="language-agda">
 data Rat : Type where
   _/_ : Int -> Pos -> Rat
   Eq : (n/m : Rat) -> (n'/m' : Rat) -> (n * m' = n' * m) 
@@ -33,7 +33,7 @@ data Rat : Type where
 
 Then to define a function \(f\) on this type we define it at the points as usual *and* the paths (equalities): \(ap_f\ (p : a = b) : f(p) = f(q)\). I have made up a notation where you pattern match each path constructor and overload function name `f`:
 
-<div class="language-idris">
+<div class="language-agda">
 f : (p : x = y) -> f x = f y
 f (PathConstr1(?fields) : x = y) = ?prove : f x = f y
 f (PathConstr2(?fields) : x = y) = ?prove : f x = f y
