@@ -24,7 +24,7 @@ As quotients can be thought of as "adding structure" to free inductive types, it
 
 We can represent fractions by a pair of an integer numerator and positive denominator. Then rationals can be the quotient of fractions equating all representations of the same rational:
 
-<div class="language-idrs">
+<div class="language-agda">
 data Rat : Type where
   _/_ : Int -> Pos -> Rat
   Eq : (n/m : Rat) -> (n'/m' : Rat) -> (n * m' = n' * m) 
@@ -33,7 +33,7 @@ data Rat : Type where
 
 Then to define a function \(f\) on this type we define it at the points as usual *and* the paths (equalities): \(ap_f\ (p : a = b) : f(p) = f(q)\). I have made up a notation where you pattern match each path constructor and overload function name `f`:
 
-<div class="language-idris">
+<div class="language-agda">
 f : (p : x = y) -> f x = f y
 f (PathConstr1(?fields) : x = y) = ?prove : f x = f y
 f (PathConstr2(?fields) : x = y) = ?prove : f x = f y
@@ -41,7 +41,7 @@ f (PathConstr2(?fields) : x = y) = ?prove : f x = f y
 
 For example, negation:<fn>You can really see the functorial/categorical foundations in these definitions.</fn>
 
-<div class="language-idris">
+<div class="language-agda">
 -_ : Rat -> Rat
 -(n/m) = (-n)/m
 {- We must also provide a case for the path constructor -}
@@ -55,7 +55,7 @@ Here `>>` represents path composition and `flip` path inversion. I.e. for <span 
 
 The ideas extend to multiple-argument functions:
 
-<div class="language-idris">
+<div class="language-agda">
 _*_ : Rat -> Rat -> Rat</span>
 (n/m) * (n'/m') = (n * n')/(m * m')
 {- Assume associativity lemma A {a,b,c} : (a*b)*c = a*(b*c) and commutativity lemma C {a,b} : a * b = b * c -}
@@ -71,7 +71,7 @@ _*_ : Rat -> Rat -> Rat</span>
 
 Similarly, we can represent unordered pairs:
 
-<div class="language-idris">
+<div class="language-agda">
 data UPair : Type -> Type -> Type where
   (,) : UPair a b
   Swap : ((x, y) : UPair a b) -> (x, y) = (y, x)
@@ -79,15 +79,15 @@ data UPair : Type -> Type -> Type where
 
 Whose functions `f : UPair a b -> T` must have a case for `Swap`, which amounts to proving commutativity!
 
-<div class="language-idris">
+<div class="language-agda">
 f (Swap (x,y)) = ?commutativity : f (x, y) = f (y, x)
 </div>
 
 ### Multisets
 
-Now we get onto examples from some papers. In the motivation for Epigram (McKinna 2006) a merge sort is formalised. Their final sorting function has the following type:<fn>In Idris-like syntax.</fn>
+Now we get onto examples from some papers. In the motivation for Epigram (McKinna 2006) a merge sort is formalised. Their final sorting function has the following type:<fn>In agda-like syntax.</fn>
 
-<div class="language-idris">
+<div class="language-agda">
 data OList Nat where
   [] : OList 0
   (::) : (x : Nat) -> {y : Nat} -> {auto lt : x <= y} 
@@ -102,7 +102,7 @@ Where `OList` is a locally sorted list with an (open) lower bound on all its ele
 
 But how could this invariant be enforced? Well, there are many ways: you could explicitly include a permutation proof `Permutation : List Nat -> List Nat -> Type` on lists and a `toList` function from `OList 0` to `List Nat`, require that `sort` also returns a proof:
 
-<div class="language-idris">
+<div class="language-agda">
 sort : (xs : List Nat) -> (ys : OList 0 ** Permutation(xs, toList ys))
 </div>
 
@@ -112,7 +112,7 @@ But, I found an interesting way to do this differently with quotients. We simply
 
 The easiest way to define multisets is by asserting that if you union (append) two multisets in any order, then they are still equal. It is easy to see that this creates an equivalence relation relating all permutations together.
 
-<div class="language-idris">
+<div class="language-agda">
 data Multiset : Type -> Type where
   List a {- extending lists with a quotient 
             (like in polymorphic variants) -}
@@ -128,45 +128,45 @@ By the subtyping ideas mentioned earlier, a list is automatically a multiset. In
 
 Every inductive type generates a free algebra (Burris and Sankappanavar 1981), while quotients allow further non-trivial identifications between terms to be made. This allows us to impose an *equational theory* upon the inductive type.
 
-For example, we can consider a Packet DSL implemented in Idris by Brady (2011). They start with a basic type to describe primitive data chunks of length-indexed bits, null-terminated strings, length-indexed strings, and propositions about the chunks:<fn>Just a question: why don't they also check that length-indexed strings are non-negative? Like they do with bit chunks?</fn>
+For example, we can consider a Packet DSL implemented in agda by Brady (2011). They start with a basic type to describe primitive data chunks of length-indexed bits, null-terminated strings, length-indexed strings, and propositions about the chunks:<fn>Just a question: why don't they also check that length-indexed strings are non-negative? Like they do with bit chunks?</fn>
 
-<div class="language-idris">
+<div class="language-agda">
 data Chunk : Set where
   bit : (width: Int) -> so (width>0) -> Chunk
-  | Cstring : Chunk
-  | Lstring : Int -> Chunk
-  | prop : (P:Prop) -> Chunk
+  Cstring : Chunk
+  Lstring : Int -> Chunk
+  prop : (P:Prop) -> Chunk
 </div>
 
 Since these are purely markers, we cannot do any meaningful quotients here. However, the propositions with `and` and `or` constructors could be equated via de Morgan's laws.
 
 More importantly, they define a `PacketLang` DSL, where we can add some useful equational laws:
 
-<div class="language-idris">
+<div class="language-agda">
 data PacketLang : Set where
   CHUNK : (c:Chunk) -> PacketLang
-  | IF : Bool -> PacketLang -> PacketLang -> PacketLang
-  | (//) : PacketLang -> PacketLang -> PacketLang
-  | LIST : PacketLang -> PacketLang
-  | LISTN : (n:Nat) -> PacketLang -> PacketLang
-  | BIND : (p:PacketLang) ->
+  IF : Bool -> PacketLang -> PacketLang -> PacketLang
+  (//) : PacketLang -> PacketLang -> PacketLang
+  LIST : PacketLang -> PacketLang
+  LISTN : (n:Nat) -> PacketLang -> PacketLang
+  BIND : (p:PacketLang) ->
            (mkTy p -> PacketLang) -> PacketLang
   {- Path Constructors -}
-  | IFTrue : If true p q = p
-  | IfFalse : If false p q = q
-  | IfSame : {p = q} -> If b p q = p
-  | OrAssoc : (p // q) // r = p // (q // r)
-  | OrComm : p // q = q // r
-  | OrSame : {p = q} -> p // q = p
-  | BindRet : {p : PacketLang} -> {f : mkTy p -> PacketLang} 
+  IFTrue : If true p q = p
+  IfFalse : If false p q = q
+  IfSame : {p = q} -> If b p q = p
+  OrAssoc : (p // q) // r = p // (q // r)
+  OrComm : p // q = q // r
+  OrSame : {p = q} -> p // q = p
+  BindRet : {p : PacketLang} -> {f : mkTy p -> PacketLang} 
               -> BIND (CHUNK x) f = f (mkTy x)
-  | BindAssoc  : {p : PacketLang} {f : mkTy p -> PacketLang} 
+  BindAssoc  : {p : PacketLang} {f : mkTy p -> PacketLang} 
                -> {g : mkTy (BIND p f) -> PacketLang} 
                -> BIND (BIND p f) g = BIND p (\x => BIND (f x) g)
-  | ... {- etc. (note, not all the obvious laws work due to weirdness of mkTy) -}
+  ... {- etc. (note, not all the obvious laws work due to weirdness of mkTy) -}
 </div>
 
-However, since everything decodes via `mkTy` and `chunkTy` to (different, built-in) Idris types, we can only get isomorphisms, not equalities between these results, which is incompatible with our quotients that require equivalence. Although this would be fine in a homotopy setting by the Univalence axiom (Univalent Foundations Program 2013). Similarly, it would be nice to have laws saying that the equational theory is *algebraic* w.r.t. `BIND` (that `IF` and `//` distribute through `BIND`) but these do not type check. Creating a unified inductive data type instead of decoding various different generic Idris types, then `mkTy` would effectively be a normalisation (eval) function on the DSL, performed before marshalling in order to extract the data consistently without violating the quotients. In this situation, the type system would need to *normalise* the `PacketLang` terms before being passed into C code as the laws cannot be verified within C code.
+However, since everything decodes via `mkTy` and `chunkTy` to (different, built-in) idris types, we can only get isomorphisms, not equalities between these results, which is incompatible with our quotients that require equivalence. Although this would be fine in a homotopy setting by the Univalence axiom (Univalent Foundations Program 2013). Similarly, it would be nice to have laws saying that the equational theory is *algebraic* w.r.t. `BIND` (that `IF` and `//` distribute through `BIND`) but these do not type check. Creating a unified inductive data type instead of decoding various different generic agda types, then `mkTy` would effectively be a normalisation (eval) function on the DSL, performed before marshalling in order to extract the data consistently without violating the quotients. In this situation, the type system would need to *normalise* the `PacketLang` terms before being passed into C code as the laws cannot be verified within C code.
 
 Quotients can represent much more complex equational theories, as can be seen in Altenkirch and Kaposi (2016).
 
@@ -185,7 +185,7 @@ Second, we still need to perform proofs that quotients are respected, and proof 
 - MacQueen, D. B. 1986. *Using dependent types to express modular structure*. POPL ’86. <https://doi.org/10.1145/512644.512670>  
 - Girard, J.-Y. 1986. *The system F of variable types, fifteen years later*. Theoretical Computer Science. <https://www.sciencedirect.com/science/article/pii/0304397586900447>  
 - Šinkarovs, A. and Cockx, J. 2021. *Extracting the power of dependent types*. GPCE 2021. <https://doi.org/10.1145/3486609.3487201>  
-- Brady, E. C. 2011. *IDRIS — systems programming meets full dependent types*. PLPV ’11. <https://doi.org/10.1145/1929529.1929536>  
+- Brady, E. C. 2011. *agda — systems programming meets full dependent types*. PLPV ’11. <https://doi.org/10.1145/1929529.1929536>  
 - McKinna, J. 2006. *Why dependent types matter*. SIGPLAN Not. / POPL ’06. <https://doi.org/10.1145/1111037.1111038>  
 - Univalent Foundations Program. 2013. *Homotopy Type Theory: Univalent Foundations of Mathematics* (book). <https://homotopytypetheory.org/book>  
 - Madhavapeddy, A., Minsky, Y., and Hickey, J. 2022. *Polymorphic Variants (Chapter 6.5)*. In *Real World OCaml* (online chapter). <https://dev.realworldocaml.org/variants.html\#polymorphic-variants>  
