@@ -4,7 +4,7 @@
   <post-tags>Quotient Inductive Types, Dependent Types, Invariants, Type Theory, Homotopy Type Theory</post-tags>
 </post-metadata>
 
-Type systems allow programmers to express the intent of their program, and catch errors which would violate their intent <fn>Strictly speaking, not arbitrary. We still cannot reason about effects directly and reasoning about these properties in the presence of non-termination is difficult.</fn> *statically*. In the simple case this amounts to checking that the inputs and outputs of functions are of the same `shape` — that is, integers or strings, or functions.
+Type systems allow programmers to express the intent of their program, and catch errors which would violate their intent <fn>Strictly speaking, not arbitrary. We still cannot reason about effects directly and reasoning about these properties in the presence of non-termination is difficult.</fn> *statically*. In the simple case this amounts to checking that the inputs and outputs of functions are of the same <i>shape</i> — that is, integers or strings, or functions.
 
 Dependent types take this further, allowing programmers to express arbitrary properties and invariants about their code, greatly extending their ability to (statically) ensure correctness of programs. Further, this allows users of the code to directly see these properties<fn>In essence, a form of automatically up-to-date and provable documentation.</fn>, provably confirm that invariants are preserved<fn>Again, up to non-termination.</fn>, and have the compiler check that their usage of the code still maintains these invariants.
 
@@ -25,9 +25,9 @@ As quotients can be thought of as "adding structure" to free inductive types, it
 We can represent fractions by a pair of an integer numerator and positive denominator. Then rationals can be the quotient of fractions equating all representations of the same rational:
 
 <div class="language-idris">
-data <span class="inline-math">\mathbb{Q}</span> : Type where
-  _/_ : <span class="inline-math">\mathbb{Z}</span> -> <span class="inline-math">\mathbb{N^+}</span> -> <span class="inline-math">\mathbb{Q}</span>
-  Eq : (n/m : <span class="inline-math">\mathbb{Q}</span>) -> (n'/m' : <span class="inline-math">\mathbb{Q}</span>) -> (n * m' = n' * m) 
+data Rat : Type where
+  _/_ : Int -> Pos -> Rat
+  Eq : (n/m : Rat) -> (n'/m' : Rat) -> (n * m' = n' * m) 
         -> (n/m = n'/m')
 </div>
 
@@ -42,7 +42,7 @@ f (PathConstr2(?fields) : x = y) = ?prove : f x = f y
 For example, negation:<fn>You can really see the functorial/categorical foundations in these definitions.</fn>
 
 <div class="language-idris">
--_ : <span class="inline-math">\mathbb{Q}</span> -> <span class="inline-math">\mathbb{Q}</span>
+-_ : Rat -> Rat
 -(n/m) = (-n)/m
 {- We must also provide a case for the path constructor -}
 {- Remember (Eq q q' p) : q = q', so -(Eq q q' p) : -q = -q' -}
@@ -51,12 +51,12 @@ For example, negation:<fn>You can really see the functorial/categorical foundati
 -(Eq q q' p) = Eq (-q -q' (L >> -p >> L^{-1}))
 </div>
 
-Here `>>` represents path composition and `^{-1}` path inversion. I.e. for \(p : a = b\) and \(q : b = c\) then \(p \mathrel{>>} q : a = c\) and \(p^{-1} : b = a\). Applying a function \(f : A \to B\) to a path \(p : a =_A a'\) gives \(f(p) : f(a) =_B f(a')\); in the above case \(-p : -(n*m') = -(n'*m)\).
+Here `>>` represents path composition and `^{-1}` path inversion. I.e. for <span class="inline-math">p : a = b</span> and <span class="inline-math">q : b = c</span> then <span class="inline-math">p \texttt{>>} q : a = c</span> and <span class="inline-math">p^{-1} : b = a</span>. Applying a function <span class="inline-math">f : A \to B</span> to a path <span class="inline-math">p : a =_A a'</span> gives <span class="inline-math">f(p) : f(a) =_B f(a')</span>; in the above case <span class="inline-math">-p : -(n*m') = -(n'*m)</span>.
 
 The ideas extend to multiple-argument functions:
 
 <div class="language-idris">
-_*_ : <span class="inline-math">\mathbb{Q}</span> -> <span class="inline-math">\mathbb{Q}</span> -> <span class="inline-math">\mathbb{Q}</span>
+_*_ : Rat -> Rat -> Rat</span>
 (n/m) * (n'/m') = (n * n')/(m * m')
 {- Assume associativity lemma A {a,b,c} : (a*b)*c = a*(b*c) and commutativity lemma C {a,b} : a * b = b * c -}
 {- This proof could be simplified via stronger lemmas -}
@@ -77,7 +77,7 @@ data UPair : Type -> Type -> Type where
   Swap : ((x, y) : UPair a b) -> (x, y) = (y, x)
 </div>
 
-Whose functions `f : UPair a b -> T` must have a case, which amounts to proving commutativity!
+Whose functions `f : UPair a b -> T` must have a case for `Swap`, which amounts to proving commutativity!
 
 <div class="language-idris">
 f (Swap (x,y)) = ?commutativity : f (x, y) = f (y, x)
@@ -85,28 +85,28 @@ f (Swap (x,y)) = ?commutativity : f (x, y) = f (y, x)
 
 ### Multisets
 
-Now we get onto examples from some papers. In the motivation for Epigram (McKinna 2006) a merge sort is formalised. Their final sorting function has the following type:<fn>In Idris syntax.</fn>
+Now we get onto examples from some papers. In the motivation for Epigram (McKinna 2006) a merge sort is formalised. Their final sorting function has the following type:<fn>In Idris-like syntax.</fn>
 
 <div class="language-idris">
-data OList <span class="inline-math">\mathbb{N}</span> where
+data OList Nat where
   [] : OList 0
-  (::) : (x : <span class="inline-math">\mathbb{N}</span>) -> {y : <span class="inline-math">\mathbb{N}</span>} -> {auto lt : x <= y} 
+  (::) : (x : Nat) -> {y : Nat} -> {auto lt : x <= y} 
          -> OList y -> OList x
 
-sort : List <span class="inline-math">\mathbb{N}</span> -> OList 0
+sort : List Nat -> OList 0
 </div>
 
 Where `OList` is a locally sorted list with an (open) lower bound on all its elements. The locally-sorted property is ensured by the requirement that to cons a list we must provide a proof `lt : x <= y`. However, this of course does not require the resulting list to have the same elements as before, just that it is sorted.<fn>Which they mention in the paper of course.</fn> We could just always return the empty list!
 
-But how could this invariant be enforced? Well, there are many ways: you could explicitly include a permutation proof `Permutation : List \mathbb{N} -> List \mathbb{N} -> Type` on lists and a `toList` function from `OList 0` to `List \mathbb{N}`, require that `sort` also returns a proof:
+But how could this invariant be enforced? Well, there are many ways: you could explicitly include a permutation proof `Permutation : List Nat -> List Nat -> Type` on lists and a `toList` function from `OList 0` to `List Nat`, require that `sort` also returns a proof:
 
 <div class="language-idris">
-sort : (xs : List <span class="inline-math">\mathbb{N}</span>) -> (ys : OList 0 ** Permutation(xs, toList ys))
+sort : (xs : List Nat) -> (ys : OList 0 ** Permutation(xs, toList ys))
 </div>
 
 We then have to pass and manipulate the proof explicitly through each recursive call of the sort function.
 
-But, I found an interesting way to do this differently with quotients. We simply say that `sort` takes multisets (whose underlying inductive type is `List \mathbb{N}`) to sort. Then any lists that differ only by ordering are identified by the same multiset and must return equivalent `OList`s. However, there is still no link between the input and output, and it seems a dependent pair is unavoidable: here we require that the input multiset is equal to the output. That is, that `sort` is an identity function on multisets. What makes this method easier is that the quotients have already enforced that all permutations map to the same output; we should only need to prove the equality for the case when the input is already sorted!
+But, I found an interesting way to do this differently with quotients. We simply say that `sort` takes multisets (whose underlying inductive type is `List Nat`) to sort. Then any lists that differ only by ordering are identified by the same multiset and must return equivalent `OList`s. However, there is still no link between the input and output, and it seems a dependent pair is unavoidable: here we require that the input multiset is equal to the output. That is, that `sort` is an identity function on multisets. What makes this method easier is that the quotients have already enforced that all permutations map to the same output; we should only need to prove the equality for the case when the input is already sorted!
 
 The easiest way to define multisets is by asserting that if you union (append) two multisets in any order, then they are still equal. It is easy to see that this creates an equivalence relation relating all permutations together.
 
@@ -117,7 +117,7 @@ data Multiset : Type -> Type where
   Commute : (xs : Multiset a) -> (ys : Multiset a) 
             -> xs ++ ys = ys ++ xs
 
-sort : (xs : Multiset <span class="inline-math">\mathbb{N}</span>) -> (ys : OList 0 ** xs = ys)
+sort : (xs : Multiset Nat) -> (ys : OList 0 ** xs = ys)
 </div>
 
 By the subtyping ideas mentioned earlier, a list is automatically a multiset. Interestingly, we can use sorted lists as a canonical form for multisets, meaning any function `f : OList 0 -> T` precomposes with `sort` to give rise to a function out of the quotient `f ∘ sort : Multiset \mathbb{N} -> T` with *no proof obligations*. Equally, multisets could have been defined by quotienting with `sort` (i.e. identifying lists whose sorted representations are equal).
