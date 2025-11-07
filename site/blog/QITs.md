@@ -1,6 +1,6 @@
 <post-metadata>
   <post-title>Programming with Quotients</post-title>
-  <post-date>2025-10-01</post-date>
+  <post-date>2025-11-07</post-date>
   <post-tags>Quotient Inductive Types, Dependent Types, Invariants, Type Theory, Homotopy Type Theory</post-tags>
 </post-metadata>
 
