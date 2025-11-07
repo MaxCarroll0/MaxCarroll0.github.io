@@ -1,6 +1,6 @@
 <post-metadata>
   <post-title>The Effect Handler Soup — Pushing Effect Handlers into the Mainstream</post-title>
-  <post-date>2025-10-01</post-date>
+  <post-date>2025-11-01</post-date>
   <post-tags>Effect Handlers, Algebraic Effects, Programming Languages, Functional Programming, Monads</post-tags>
 </post-metadata>
 
