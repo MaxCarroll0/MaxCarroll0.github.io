@@ -48,10 +48,10 @@ For example, negation:<fn>You can really see the functorial/categorical foundati
 {- Remember (Eq q q' p) : q = q', so -(Eq q q' p) : -q = -q' -}
 {- Remember that p : n * m' = n' * m -}
 {- Assume a lemma that L {n,m} = (-n) * m = -(n * m) -}
--(Eq q q' p) = Eq (-q -q' (L >> -p >> L^{-1}))
+-(Eq q q' p) = Eq (-q -q' (L >> -p >> flip L))
 </div>
 
-Here `>>` represents path composition and `^{-1}` path inversion. I.e. for <span class="inline-math">p : a = b</span> and <span class="inline-math">q : b = c</span> then <span class="inline-math">p \texttt{>>} q : a = c</span> and <span class="inline-math">p^{-1} : b = a</span>. Applying a function <span class="inline-math">f : A \to B</span> to a path <span class="inline-math">p : a =_A a'</span> gives <span class="inline-math">f(p) : f(a) =_B f(a')</span>; in the above case <span class="inline-math">-p : -(n*m') = -(n'*m)</span>.
+Here `>>` represents path composition and `flip` path inversion. I.e. for <span class="inline-math">p : a = b</span> and <span class="inline-math">q : b = c</span> then <span class="inline-math">p \texttt{>>} q : a = c</span> and <span class="inline-math">flip p : b = a</span>. Applying a function <span class="inline-math">f : A \to B</span> to a path <span class="inline-math">p : a =_A a'</span> gives <span class="inline-math">f(p) : f(a) =_B f(a')</span>; in the above case <span class="inline-math">-p : -(n*m') = -(n'*m)</span>.
 
 The ideas extend to multiple-argument functions:
 
@@ -61,8 +61,8 @@ _*_ : Rat -> Rat -> Rat</span>
 {- Assume associativity lemma A {a,b,c} : (a*b)*c = a*(b*c) and commutativity lemma C {a,b} : a * b = b * c -}
 {- This proof could be simplified via stronger lemmas -}
 (Eq q r p) * (Eq q' r' p') =
-  let rearrange = A >> (refl * A^{-1}) >> (refl * (C * refl)) 
-                  >> (refl * A) >> A^{-1} in
+  let rearrange = A >> (refl * flip A) >> (refl * (C * refl)) 
+                  >> (refl * A) >> flip A in
   let e =  rearrange >> (p * p') >> rearrange in
   Eq ((q * q') (r * r') e)
 </div>
