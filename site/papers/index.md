@@ -5,6 +5,10 @@ Here is a list of my papers and talks.
 <div id="paper-entries-workshops">
 </div>
 
+## Conferences
+<div id="paper-entries-conferences">
+</div>
+
 ## Other
 <div id="paper-entries-others">
 </div>

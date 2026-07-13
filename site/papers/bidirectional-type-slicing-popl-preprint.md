@@ -2,7 +2,7 @@
   <paper-date>2026-07-09</paper-date>
   <paper-pages>28</paper-pages>
   <paper-conference>POPL 2027 preprint under review, https://popl27.sigplan.org/track/POPL-2027-popl-research-papers</paper-conference>
-  <paper-type>Other</paper-type>
+  <paper-type>Conference</paper-type>
   <tags>Programming Language Design, Interactive Debugging, Type Systems, Type Errors, Hazel, Bidirectional Types, Gradual Types, Polymorphism, Mechanisation, Proof Assistants, Agda</tags>
   <paper-abstract>Development tools report what type an expression has, but not why it has that type. This preprint develops type slicing for bidirectional type systems: a programmer selects a term, queries part of its type information, and receives a well-formed partial program that is sufficient to reproduce the queried type. The theory covers synthesis slices for types produced by terms and analysis slices for expectations imposed by contexts, proves existence and monotonicity properties for minimal slices, gives exact and approximate algorithms, extends the account to ill-typed programs using error marking, and connects the metatheory to a Hazel implementation and Agda mechanisation.</paper-abstract>
   <paper-authors>Max Carroll | https://maxcarroll0.github.io, Anil Madhavapeddy | https://anil.recoil.org, Cyrus Omar | https://hazel.org</paper-authors>
