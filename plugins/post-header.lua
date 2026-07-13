@@ -147,6 +147,12 @@ if post_series then
   HTML.delete(post_series)
   end
 
+post_hidden = HTML.select_one(page, "post-hidden")
+if post_hidden then
+  env["hidden"] = HTML.strip_tags(post_hidden)
+  HTML.delete(post_hidden)
+end
+
 -- Now clean up the <post-metadata> container
 post_metadata_container = HTML.select_one(page, "post-metadata")
 if post_metadata_container then
@@ -158,7 +164,6 @@ end
 tmpl = config["post_header_template"]
 header = HTML.parse(String.render_template(tmpl, env))
 HTML.prepend_child(content_container, header)
-
 
 
 

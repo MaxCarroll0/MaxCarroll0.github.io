@@ -2,6 +2,7 @@
   <post-title>The Effect Handler Soup — Pushing Effect Handlers into the Mainstream</post-title>
   <post-date>2025-11-01</post-date>
   <post-tags>Effect Handlers, Algebraic Effects, Programming Languages, Functional Programming, Monads</post-tags>
+  <post-hidden>true</post-hidden>
 </post-metadata>
 
 Effect Handlers are one of the hot topics in programming language research at present. While the original ideas of effect systems<fn>That is, the idea of <i>effect operators</i>. Effect handlers being more recent.</fn> are “old” (Lucassen and Gifford 1988; Lucassen 1987)<fn>Coinciding with the <i>application</i> of monads to programming by Moggi (1989, 1991).</fn>, there has been an accelerating flurry of research in the last 15 years since effect handlers were introduced (Plotkin and Pretnar 2009), leaving a soup of possibilities to choose from and explore when designing and implementing an effect handler system.
@@ -162,4 +163,3 @@ Despite differing semantics, Effekt’s polymorphism is strikingly similar to Fr
 - Wu, Nicolas, Tom Schrijvers, and Ralf Hinze. 2014. *Effect Handlers in Scope*. *SIGPLAN Not.* 49(12):1–12.  
 - Plotkin, Gordon and Ningning Xie. 2025. *Handling the Selection Monad*. *Proc. ACM Program. Lang.* PLDI.  
 - Xie, Ningning. 2025. *Smart Handlers: Handling the Selection Monad*. *HOPE Workshop, ICFP/SPLASH 2025*.  
-

@@ -90,6 +90,7 @@
   post_series = { selector = ["#post-series"] }
   post_excerpt = { selector = ["#post-excerpt", "p"] }
   post_date = { selector = ["#post-date", "time"] }
+  post_hidden = { selector = "#post-hidden" }
 
   post_reading_time = { selector = "#post-reading-time" }
 
@@ -123,7 +124,7 @@
   # One entry for each series
   index_template = """
     {% for e in entries %}
-    {% if not e.post_series %}
+    {% if not e.post_series and e.post_hidden != "true" %}
     {% set series = entries | map(attr('post_series')) | select(eq(e.post_title)) %}
     <h2 id="post-title"><a href="{{e.url}}">{{e.post_title}}</a>{% if series %} ({{length(series)}} posts){% endif %}</h2>
     <div><strong>Date posted:</strong> {% if series %}{{(entries | find(compose(eq(e.post_title), attr('post_series')))).post_date}}{% else %}{{e.post_date}}{% endif %}</div>
@@ -163,8 +164,10 @@
     {% set limit = int(soupault_config.custom_options.blog_summary_max_entries) %}
     <dl>
       {% for e in sublist(0, limit, entries) %}
+      {% if e.post_hidden != "true" %}
       <dt>{{e.post_date}}</dt>
       <dd> <a href="{{e.url}}">{{e.post_title}}</a>{% if e.post_series %} - <a href="blog/{{e.post_series}}/">{{e.post_series}}</a>{% endif %} <i>(Reading time: {{e.post_reading_time}})</i></dd>
+      {% endif %}
       {% endfor %}
       </ul>
     </dl>
@@ -203,7 +206,7 @@
     local i = 1
     while site_index[i] do
       local post = site_index[i]
-      if post["post_series"] == HTML.inner_html(series) then
+      if post["post_series"] == HTML.inner_html(series) and post["post_hidden"] ~= "true" then
         filtered[n] = post
         n = n + 1
       end
@@ -261,7 +264,7 @@
     local i = 1
     while site_index[i] do
       local post = site_index[i]
-      if post["post_series"] == series then
+      if post["post_series"] == series and post["post_hidden"] ~= "true" then
         filtered[n] = post
         n = n + 1
       end
@@ -300,6 +303,8 @@
 
   section = "papers"
   include_subsections = true
+  sort_by = "paper_date"
+  sort_descending = true
 
   # In this case index_template is a soupault built-in
   index_template = """
@@ -635,6 +640,7 @@
   post_header_template = '''
     <div id="post-header">
       <h1><span id="post-title">{{title}}</span>{% if series %}{% if series != title %} - <a href="/blog/{{series}}" id="post-series">{{series}}</a>{% endif %}{% endif %}</h1>
+      {% if hidden %}<span id="post-hidden" style="display:none;">{{hidden}}</span>{% endif %}
       <div><strong>Date posted:</strong> <time id="post-date" datetime="{{date}}">{{date}}</time></div>
       {% if tags %}
         <div class="tags">
